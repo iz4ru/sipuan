@@ -50,10 +50,10 @@ Route::middleware('auth') -> group(function (){
     Route::get('staff-mgmt', [StaffController::class, 'index'])->name('staff.mgmt');
     Route::get('staff-mgmt/create', [StaffController::class, 'create'])->name('staff.mgmt.create');
     Route::post('staff-mgmt/store', [StaffController::class, 'store'])->name('staff.mgmt.store');
-    Route::get('staff-mgmt/edit/{id}', [StaffController::class, 'show'])->name('staff.mgmt.edit');
-    Route::put('staff-mgmt/update/{id}', [StaffController::class, 'update'])->name('staff.mgmt.update');
-    Route::delete('staff-mgmt/delete/{id}', [StaffController::class, 'destroy'])->name('staff.mgmt.delete');
-    Route::get('staff-mgmt/preview/{id}', [StaffController::class, 'preview'])->name('staff.mgmt.preview');
+    Route::get('staff-mgmt/edit/{uuid}', [StaffController::class, 'show'])->name('staff.mgmt.edit');
+    Route::put('staff-mgmt/update/{uuid}', [StaffController::class, 'update'])->name('staff.mgmt.update');
+    Route::delete('staff-mgmt/delete/{uuid}', [StaffController::class, 'destroy'])->name('staff.mgmt.delete');
+    Route::get('staff-mgmt/preview/{uuid}', [StaffController::class, 'preview'])->name('staff.mgmt.preview');
 
     # Logs
     Route::get('logs', [LogController::class, 'index'])->name('admin.logs');

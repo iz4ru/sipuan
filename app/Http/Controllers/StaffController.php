@@ -11,10 +11,29 @@ use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $x['staffs'] = Staff::all();
-        return view('admin.staff.index', $x);
+        $search = $request->input('search');
+
+        $query = Staff::query();
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhere('as_who', 'like', '%' . $search . '%')
+                    ->orWhere('id_number', 'like', '%' . $search . '%');
+            });
+        }
+
+        $staffs = $query->get();
+
+        // Kalo request-nya dari fetch/ajax, return JSON aja
+        if ($request->wantsJson()) {
+            return response()->json($staffs);
+        }
+
+        return view('admin.staff.index', ['staffs' => $staffs]);
     }
 
     public function logActivity($activity)
@@ -89,23 +108,25 @@ class StaffController extends Controller
         return redirect()->route('staff.mgmt')->with('success', 'Staff berhasil ditambahkan!');
     }
 
-    public function show($id)
+    public function show($uuid)
     {
-        $staff = Staff::findOrFail($id);
+        $x['staff'] = Staff::where('uuid', $uuid)->firstOrFail();
 
-        return view('admin.staff.update', compact('staff'));
+        return view('admin.staff.update', $x);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
+        $staff = Staff::where('uuid', $uuid)->firstOrFail();
+
         $activity = 'Memperbarui data staf';
         $this->logActivity($activity);
 
         $validated = $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:staffs',
-                'image' => 'required|image|mimes:png,jpg,jpeg|max:2048', // Standardized to 2MB
+                'email' => 'required|string|email|max:255|unique:staffs,email,' . $staff->id,
+                'image' => 'image|mimes:png,jpg,jpeg|max:2048', // Standardized to 2MB
                 'as_who' => 'required|string|max:255',
                 'id_number' => 'required|string|max:255',
                 'sex' => 'required|string|max:255',
@@ -124,7 +145,6 @@ class StaffController extends Controller
             ],
         );
 
-        $staff = Staff::findOrFail($id);
         $staff->name = $validated['name'];
         $staff->email = $validated['email'];
         $staff->as_who = $validated['as_who'];
@@ -151,22 +171,22 @@ class StaffController extends Controller
 
         $staff->save();
 
-        return redirect()->route('staff.mgmt')->with('success', 'Staff berhasil diperbarui!');
+        return redirect()->route('staff.mgmt')->with('success', 'Staf telah berhasil diperbarui!');
     }
 
-    public function preview($id)
+    public function preview($uuid)
     {
-        $staff = Staff::findOrFail($id);
+        $x['staff'] = Staff::where('uuid', $uuid)->firstOrFail();
 
-        return view('admin.staff.preview', compact('staff'));
+        return view('admin.staff.update', $x);
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $uuid)
     {
+        $staff = Staff::where('uuid', $uuid)->firstOrFail();
+
         $activity = 'Menghapus staf';
         $this->logActivity($activity);
-
-        $staff = Staff::findOrFail($id);
 
         $request->validate(
             [

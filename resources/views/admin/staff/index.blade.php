@@ -45,6 +45,27 @@
                     </div>
                 @endif
 
+                <form action="{{ route('staff.mgmt') }}" method="GET">
+                    <div class="mb-8 relative w-full flex justify-center">
+                        <div class="relative flex items-center gap-4 w-[400px] lg:w-[750px]">
+                            <!-- Label -->
+                            <label for="search" class="text-sm font-semibold text-gray-600 whitespace-nowrap">
+                                Cari Staf:
+                            </label>
+
+                            <!-- Input Group -->
+                            <div class="relative flex-1">
+                                <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
+                                <input placeholder="Masukkan Nama Staf" type="search" name="search" id="search"
+                                    value="{{ request('search') }}"
+                                    class="w-full h-12 pl-12 placeholder:text-sm placeholder:text-gray-300 border bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-lg shadow-sm"
+                                    autofocus autocomplete="search">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
                 <div class="overflow-x-auto text-sm">
 
                     @if ($staffs->count() <= 0)
@@ -66,7 +87,8 @@
                                                 <div class="flex flex-col items-center justify-center">
                                                     <!-- Candidate Name and Position -->
                                                     <div class="text-center">
-                                                        <h3 class="text-xl my-1 font-bold text-gray-700">
+                                                        <h3
+                                                            class="text-xl my-1 font-bold text-gray-700 truncate w-full max-w-[320px] mx-auto">
                                                             {{ $staff->name }}</h3>
                                                         <p class="text-gray-500 text-base">
                                                             {{ $staff->as_who }}</p>
@@ -97,14 +119,14 @@
                                                     <!-- Action Bar -->
                                                     @if (Auth::user()->role == 'admin')
                                                         <div class="grid grid-cols-3 gap-3">
-                                                            <a href="{{ route('staff.mgmt.edit', $staff->id) }}">
+                                                            <a href="{{ route('staff.mgmt.edit', $staff->uuid) }}">
                                                                 <div
                                                                     class="cursor-pointer bg-[#1D7AFC]/20 hover:bg-[#1D7AFC] text-[#1D7AFC] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                                     <i class="fa-solid fa-pen-to-square fa-md lg:fa-lg"></i>
                                                                     <span class="text-sm font-semibold">Edit</span>
                                                                 </div>
                                                             </a>
-                                                            <a href="{{ route('staff.mgmt.preview', $staff->id) }}">
+                                                            <a href="{{ route('staff.mgmt.preview', $staff->uuid) }}">
                                                                 <div
                                                                     class="cursor-pointer bg-[#FFB300]/20 hover:bg-[#FFB300] text-[#E5A100] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                                     <i class="fa-solid fa-eye fa-md lg:fa-lg"></i>
@@ -148,7 +170,8 @@
                                                                             dari:<br><span
                                                                                 class="font-semibold text-[#0B8BDB]">({{ $staff->name }})</span>
                                                                         </p>
-                                                                        <form action="{{ route('staff.mgmt.delete', $staff->id) }}"
+                                                                        <form
+                                                                            action="{{ route('staff.mgmt.delete', $staff->uuid) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -160,7 +183,6 @@
                                                                                     <i
                                                                                         class="fa fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
                                                                                     <input
-                                                                                        wire:model="password_confirmation"
                                                                                         placeholder="Masukkan Password User Ini"
                                                                                         type="password"
                                                                                         name="password_confirmation"
@@ -173,7 +195,8 @@
                                                                             </div>
                                                                             <div
                                                                                 class="flex flex-row gap-2 justify-between">
-                                                                                <button type="button" @click="open = false"
+                                                                                <button type="button"
+                                                                                    @click="open = false"
                                                                                     class="cursor-pointer px-5 py-2.5 bg-gray-400 hover:bg-gray-500 transform duration-100 rounded-lg">
                                                                                     <span
                                                                                         class="text-white font-semibold">Kembali</span>
@@ -218,7 +241,9 @@
                                     <div class="flex flex-col">
                                         <!-- Candidate Name and Position -->
                                         <div class="text-center">
-                                            <h3 class="text-xl my-1 font-bold text-gray-700">{{ $staff->name }}</h3>
+                                            <h3
+                                                class="text-xl my-1 font-bold text-gray-700 truncate w-full max-w-[320px] mx-auto">
+                                                {{ $staff->name }}</h3>
                                             <p class="text-gray-500 text-base">{{ $staff->as_who }}
                                             </p>
                                             <p class="text-gray-500 text-base">{{ $staff->id_number }}
@@ -226,7 +251,7 @@
                                         </div>
                                         <!-- Image -->
                                         <div
-                                            class="relative items-center justify-center my-4 bg-[#0FA3FF]/10 hover:bg-[#0FA3FF]/20 backdrop-blur-lg rounded-md transform transition ease-in-out">
+                                            class="relative items-center justify-center my-4 bg-[#0FA3FF]/10 hover:bg-[#0FA3FF]/20 backdrop-blur-lg rounded-md hover:scale-103 transform transition duration-100 ease-in-out">
                                             <img src="{{ Storage::url('images/' . $staff->image) }}"
                                                 class="w-[320px] h-[320px] lg:w-[320px] lg:h-[320px] object-cover rounded-lg border border-gray-300 shadow-sm"
                                                 alt="">
@@ -248,14 +273,14 @@
                                         <!-- Action Bar -->
                                         @if (Auth::user()->role == 'admin')
                                             <div class="grid grid-cols-3 gap-3 mt-4">
-                                                <a href="{{ route('staff.mgmt.edit', $staff->id) }}">
+                                                <a href="{{ route('staff.mgmt.edit', $staff->uuid) }}">
                                                     <div
                                                         class="cursor-pointer bg-[#1D7AFC]/20 hover:bg-[#1D7AFC] text-[#1D7AFC] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                         <i class="fa-solid fa-pen-to-square fa-md lg:fa-lg"></i>
                                                         <span class="text-sm font-semibold">Edit</span>
                                                     </div>
                                                 </a>
-                                                <a href="{{ route('staff.mgmt.preview', $staff->id) }}">
+                                                <a href="{{ route('staff.mgmt.preview', $staff->uuid) }}">
                                                     <div
                                                         class="cursor-pointer bg-[#FFB300]/20 hover:bg-[#FFB300] text-[#E5A100] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                         <i class="fa-solid fa-eye fa-md lg:fa-lg"></i>
@@ -296,7 +321,7 @@
                                                                 dari:<br><span
                                                                     class="font-semibold text-[#0B8BDB]">({{ $staff->name }})</span>
                                                             </p>
-                                                            <form action="{{ route('staff.mgmt.delete', $staff->id) }}"
+                                                            <form action="{{ route('staff.mgmt.delete', $staff->uuid) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -307,8 +332,7 @@
                                                                     <div class="relative">
                                                                         <i
                                                                             class="fa fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
-                                                                        <input wire:model="password_confirmation"
-                                                                            placeholder="Masukkan Password User Ini"
+                                                                        <input placeholder="Masukkan Password User Ini"
                                                                             type="password" name="password_confirmation"
                                                                             id="password_confirmation"
                                                                             class="text-sm w-full h-14 pl-12 pr-12 placeholder:text-gray-300 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-md shadow-sm"
