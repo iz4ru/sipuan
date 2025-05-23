@@ -36,14 +36,14 @@
                     <i class="fa-solid fa-user-check"></i>
                     <span class="font-semibold">Data Peserta Terpilih</span>
                 </x-nav-link>
-            </li>
+            </li> --}}
             <li>
-                <x-nav-link href="{{ route('position') }}" :active="request()->routeIs(['position', 'position.create', 'position.show'])"
+                <x-nav-link href="{{ route('position') }}" :active="request()->routeIs(['position', 'position.edit'])"
                     class="flex items-center gap-3 px-6 py-3 border-white">
                     <i class="fa-solid fa-list"></i>
                     <span class="font-semibold">Data Posisi</span>
                 </x-nav-link>
-            </li> --}}
+            </li>
             <li>
                 <x-nav-link href="{{ route('admin.logs') }}" :active="request()->routeIs('admin.logs')"
                     class="flex items-center gap-3 px-6 py-3 border-white">

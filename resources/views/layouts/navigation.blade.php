@@ -14,7 +14,7 @@
 
     <!-- Navigation Button Group -->
     <div class="flex gap-2 sm:gap-2 ml-auto">
-        @if (!Request::is('staff', 'rate'))
+        @if (!Request::is('staff') && !Request::is('rate/*'))
             <a href="#catalog"
                 class="button bg-[#D9D9D9]/40 text-[#B8B8B8] border-2 border-[#B8B8B8] justify-center backdrop-blur-lg px-6 sm:px-10 py-3 sm:py-3 rounded-md text-xs sm:text-sm font-semibold hover:bg-[#E0E0E0] transition-colors flex items-center gap-1 sm:gap-2">
                 Bidang

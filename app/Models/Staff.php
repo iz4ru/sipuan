@@ -16,11 +16,21 @@ class Staff extends Model
         'name',
         'email',
         'image',
-        'as_who',
+        'position_id',
         'id_number',
         'sex',
         'phone',
     ];
+
+        public function position() 
+    {
+        return $this->belongsTo(Position::class, 'position_id');
+    }
+
+    public function rateResults()
+    {
+        return $this->hasMany(RateResult::class, 'staff_id');
+    }
 
         public static function boot()
     {

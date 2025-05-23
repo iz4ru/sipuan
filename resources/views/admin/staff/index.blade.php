@@ -9,7 +9,7 @@
                 <div class="bg-gradient-to-r from-[#05C1FF]/20 to-[#0FA3FF]/20 rounded-lg shadow-lg p-6">
                     <div class="">
                         <h1 class="text-2xl lg:text-3xl font-bold text-[#0B8BDB] mb-2">Manajemen Staf</h1>
-                        <p class="text-sm text-[#0B8BDB] lg:text-base">Tambahkan data staff atau manajemen staf.
+                        <p class="text-sm text-[#0B8BDB] lg:text-base">Tambahkan data staf atau manajemen staf.
                         </p>
                     </div>
                     @if (Auth::user()->role == 'admin')
@@ -91,7 +91,7 @@
                                                             class="text-xl my-1 font-bold text-gray-700 truncate w-full max-w-[320px] mx-auto">
                                                             {{ $staff->name }}</h3>
                                                         <p class="text-gray-500 text-base">
-                                                            {{ $staff->as_who }}</p>
+                                                            {{ $staff->position->position_name }}</p>
                                                         <p class="text-gray-500 text-base">
                                                             {{ $staff->id_number }}</p>
                                                     </div>
@@ -219,8 +219,6 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <!-- Pagination -->
-                            <div class="swiper-pagination relative mt-4"></div>
                             <!-- Custom Navigation Buttons -->
                             <div
                                 class="custom-swiper-button-prev absolute left-0 top-1/2 transform -translate-y-1/2 z-10 text-[#0B8BDB] w-10 h-10 rounded-full flex items-center justify-center cursor-pointer">
@@ -244,7 +242,7 @@
                                             <h3
                                                 class="text-xl my-1 font-bold text-gray-700 truncate w-full max-w-[320px] mx-auto">
                                                 {{ $staff->name }}</h3>
-                                            <p class="text-gray-500 text-base">{{ $staff->as_who }}
+                                            <p class="text-gray-500 text-base">{{ $staff->position->position_name }}
                                             </p>
                                             <p class="text-gray-500 text-base">{{ $staff->id_number }}
                                             </p>

@@ -121,15 +121,15 @@
                                     </div>
                                 </div>
 
-                                <!-- Field -->
+                                <!-- Position -->
                                 <div>
-                                    <label for="as_who" class="text-gray-500 font-medium text-sm">Nama Bidang</label>
+                                    <label for="position_name" class="text-gray-500 font-medium text-sm">Nama Bidang</label>
                                     <div class="relative">
                                         <i class="fa fa-briefcase absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
-                                        <input placeholder="Masukkan Nama Bidang" type="text" name="as_who"
-                                            id="as_who" value="{{ old('as_who') }}"
+                                        <input placeholder="Masukkan Nama Bidang" type="text" name="position_name"
+                                            id="position_name" value="{{ old('position_name') }}"
                                             class="text-sm w-full h-14 pl-12 placeholder:text-gray-300 border bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-md shadow-sm"
-                                            required autocomplete="as_who">
+                                            required autocomplete="position_name">
                                     </div>
                                 </div>
 

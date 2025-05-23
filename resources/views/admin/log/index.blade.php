@@ -72,7 +72,7 @@
                         [10, 25, 50, -1],
                         [10, 25, 50, "Semua"]
                     ],
-                    order: [[4, "desc"]],
+                    order: [[0, "desc"]],
                     language: {
                         lengthMenu: "Tampilkan _MENU_ data per halaman",
                         zeroRecords: "Data tidak ditemukan",

@@ -35,26 +35,40 @@
                                 <!-- Card Kiri - Profil Staff -->
                                 <div
                                     class="shadow-lg flex flex-col gap-5 bg-white/30 backdrop-blur-lg w-full lg:w-1/4 py-8 px-6 rounded-xl items-center justify-center text-center">
-                                    <img src="https://placehold.co/320x320?text=&font=Poppins" alt=""
-                                        class="rounded-xl w-full max-w-[240px] shadow-md mb-4" />
+                                    <div class="relative w-[240px] h-[240px] lg:w-[240px] lg:h-[240px]">
+                                        <img src="{{ Storage::url('images/' . $staff->image) }}" alt=""
+                                            class="w-full h-full object-cover rounded-xl shadow-lg">
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-[#0FA3FF]/50 from-0% to-50% to-transparent opacity-50 rounded-xl pointer-events-none">
+                                        </div>
+                                    </div>
                                     <div class="flex flex-col items-center justify-center gap-1">
-                                        <p class="text-gray-700 text-xl font-bold">Anita Faiziyah, S.Kom</p>
-                                        <p class="text-gray-500 text-base">Administrasi TIK</p>
-                                        <p class="text-gray-500 text-base">12300111</p>
+                                        <p class="text-gray-700 text-xl font-bold">{{ $staff->name }}</p>
+                                        <p class="text-gray-500 text-base">{{ $staff->position->position_name }}</p>
+                                        <p class="text-gray-500 text-base">{{ $staff->id_number }}</p>
                                     </div>
 
                                     <hr class="w-1/2 border-t border-gray-300" />
                                     <p class="text-gray-500 text-sm">Rating Pelayanan Staf</p>
-                                    <div class="flex gap-1 items-center justify-center text-[#FFD32C]">
-                                        <i class="fa-solid fa-star fa-lg"></i>
-                                        <i class="fa-solid fa-star fa-lg"></i>
-                                        <i class="fa-solid fa-star fa-lg"></i>
-                                        <i class="fa-solid fa-star fa-lg"></i>
-                                        <i class="fa-solid fa-star fa-lg text-gray-400"></i>
+                                    <div class="flex gap-2 items-center justify-center text-[#FFD32C]">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($staff->rate_results_avg_rate >= $i)
+                                                {{-- full star --}}
+                                                <i class="fa-solid fa-star fa-xl"></i>
+                                            @elseif ($staff->rate_results_avg_rate >= $i - 0.5)
+                                                {{-- half star --}}
+                                                <i class="fa-solid fa-star-half-stroke fa-xl"></i>
+                                            @else
+                                                {{-- empty star --}}
+                                                <i class="fa-solid fa-star fa-xl text-gray-400"></i>
+                                            @endif
+                                        @endfor
                                     </div>
                                     <div>
-                                        <p class="text-gray-500 font-bold">4.0 <span class="font-normal">dari</span> 50
-                                            ulasan</p>
+                                        <p class="text-gray-500 font-bold">
+                                            {{ number_format($staff->rate_results_avg_rate, 1) ?? '0.0' }} dari
+                                            {{ $staff->rate_results_count }} ulasan
+                                        </p>
                                     </div>
                                 </div>
 
@@ -90,7 +104,7 @@
                                                             (tags.length >= maxTags ?
                                                                 'bg-gray-200 text-gray-400 cursor-not-allowed' :
                                                                 'bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white'
-                                                                )"
+                                                            )"
                                                         :disabled="!tags.includes(tag) && tags.length >= maxTags">
                                                         <span x-text="tag"></span>
                                                     </button>
@@ -148,7 +162,7 @@
                                                                 (tags.length >= maxTags ?
                                                                     'bg-gray-200 text-gray-400 cursor-not-allowed' :
                                                                     'bg-gray-200 hover:bg-[#05C1FF] hover:text-white cursor-pointer'
-                                                                    )"
+                                                                )"
                                                             :disabled="tags.includes(tag) || tags.length >= maxTags"
                                                             type="button" aria-pressed="false">
                                                             <span x-text="tag"></span>

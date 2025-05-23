@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('image')->nullable();
-            $table->string('as_who');
+            $table->unsignedBigInteger('position_id');
             $table->string('id_number')->unique();
             $table->enum('sex', ['pria', 'wanita']);
             $table->string('phone')->nullable();
             $table->timestamps();
+
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
         });
     }
 

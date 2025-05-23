@@ -7,6 +7,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AdminLoginController;
 
@@ -17,7 +18,7 @@ Route::get('/', function () {return view('index');});
 Route::get('staff', [SearchController::class, 'index'])->name('search.staff');
 
 # Rate Staff
-Route::get('rate', [RatingController::class, 'index'])->name('rate');
+Route::get('rate/{id}', [RatingController::class, 'index'])->name('rate');
 
 # Admin Authentication
 Route::middleware('guest') -> group(function (){
@@ -54,6 +55,13 @@ Route::middleware('auth') -> group(function (){
     Route::put('staff-mgmt/update/{uuid}', [StaffController::class, 'update'])->name('staff.mgmt.update');
     Route::delete('staff-mgmt/delete/{uuid}', [StaffController::class, 'destroy'])->name('staff.mgmt.delete');
     Route::get('staff-mgmt/preview/{uuid}', [StaffController::class, 'preview'])->name('staff.mgmt.preview');
+
+    # Position Management
+    Route::get('position', [PositionController::class, 'index'])->name('position');
+    Route::get('position/edit/{id}', [PositionController::class, 'show'])->name('position.edit');
+    Route::put('position/update/{id}', [PositionController::class, 'update'])->name('position.update');
+    Route::delete('position/delete/{id}', [PositionController::class, 'destroy'])->name('position.delete');
+
 
     # Logs
     Route::get('logs', [LogController::class, 'index'])->name('admin.logs');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\Staff;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,16 +22,19 @@ class StaffController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%')
                     ->orWhere('email', 'like', '%' . $search . '%')
-                    ->orWhere('as_who', 'like', '%' . $search . '%')
-                    ->orWhere('id_number', 'like', '%' . $search . '%');
+                    ->orWhere('id_number', 'like', '%' . $search . '%')
+                    ->orWhereHas('position', function ($q2) use ($search) {
+                        $q2->where('position_name', 'like', '%' . $search . '%');
+                    });
             });
         }
 
         $staffs = $query->get();
 
-        // Kalo request-nya dari fetch/ajax, return JSON aja
         if ($request->wantsJson()) {
-            return response()->json($staffs);
+            $staffs = $query->with('position')->get();
+        } else {
+            $staffs = $query->get();
         }
 
         return view('admin.staff.index', ['staffs' => $staffs]);
@@ -53,7 +57,9 @@ class StaffController extends Controller
 
     public function create()
     {
-        return view('admin.staff.create');
+        $x['positions'] = Position::all();
+
+        return view('admin.staff.create', $x);
     }
 
     public function store(Request $request)
@@ -66,10 +72,10 @@ class StaffController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:staffs',
                 'image' => 'required|image|mimes:png,jpg,jpeg|max:2048', // Standardized to 2MB
-                'as_who' => 'required|string|max:255',
                 'id_number' => 'required|string|max:255',
                 'sex' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
+                'position_name' => 'required|string|max:255',
             ],
             [
                 'image.max' => 'Ukuran file terlalu besar! Maksimal 2MB.',
@@ -79,16 +85,22 @@ class StaffController extends Controller
                 'email.required' => 'Email tidak boleh kosong!',
                 'email.email' => 'Format email tidak valid!',
                 'email.unique' => 'Email sudah terdaftar!',
+                'id_number.required' => 'Nomor identitas tidak boleh kosong!',
+                'position_name.required' => 'Bidang tidak boleh kosong!',
             ],
         );
+
+        $position = Position::create([
+            'position_name' => $validated['position_name'],
+        ]);
 
         $staff = new Staff();
         $staff->name = $validated['name'];
         $staff->email = $validated['email'];
-        $staff->as_who = $validated['as_who'];
         $staff->id_number = $validated['id_number'];
         $staff->sex = $validated['sex'];
         $staff->phone = $validated['phone'];
+        $staff->position_id = $position->id;
 
         if ($request->hasFile('image')) {
             try {
@@ -111,6 +123,7 @@ class StaffController extends Controller
     public function show($uuid)
     {
         $x['staff'] = Staff::where('uuid', $uuid)->firstOrFail();
+        $x['positions'] = Position::all();
 
         return view('admin.staff.update', $x);
     }
@@ -127,10 +140,10 @@ class StaffController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:staffs,email,' . $staff->id,
                 'image' => 'image|mimes:png,jpg,jpeg|max:2048', // Standardized to 2MB
-                'as_who' => 'required|string|max:255',
                 'id_number' => 'required|string|max:255',
                 'sex' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
+                'position_id' => 'required',
             ],
             [
                 'image.max' => 'Ukuran file terlalu besar! Maksimal 2MB.',
@@ -142,15 +155,16 @@ class StaffController extends Controller
                 'email.unique' => 'Email sudah terdaftar!',
                 'as_who.required' => 'Sebagai siapa tidak boleh kosong!',
                 'id_number.required' => 'Nomor identitas tidak boleh kosong!',
+                'position_id.required' => 'Bidang tidak boleh kosong!',
             ],
         );
 
         $staff->name = $validated['name'];
         $staff->email = $validated['email'];
-        $staff->as_who = $validated['as_who'];
         $staff->id_number = $validated['id_number'];
         $staff->sex = $validated['sex'];
         $staff->phone = $validated['phone'];
+        $staff->position_id = $validated['position_id'];
 
         if ($request->hasFile('image')) {
             try {
@@ -177,6 +191,7 @@ class StaffController extends Controller
     public function preview($uuid)
     {
         $x['staff'] = Staff::where('uuid', $uuid)->firstOrFail();
+        $x['positions'] = Position::all();
 
         return view('admin.staff.update', $x);
     }
