@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('position_id')->nullable();
             $table->unsignedBigInteger('comment_id')->nullable();
             $table->integer('rate')->nullable();
+            # tag accumulation
             $table->timestamps();
 
             $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');

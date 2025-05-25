@@ -32,6 +32,31 @@ class PositionController extends Controller
         $log->save();
     }
 
+        public function create()
+    {
+        return view('admin.position.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate(
+            [
+                'position_name' => 'required|string|max:255|unique:positions,position_name',
+            ],
+            [
+                'position_name.required' => 'Nama posisi tidak boleh kosong!',
+                'position_name.unique' => 'Nama posisi sudah ada!',
+            ],
+        );
+
+        $position = Position::create($validatedData);
+
+        $activity = 'Menambahkan posisi baru: ' . $position->position_name;
+        $this->logActivity($activity);
+
+        return redirect()->route('position')->with('success', 'Posisi berhasil ditambahkan!');
+    }
+
     public function show($id)
     {
         $x['position'] = Position::findOrFail($id);
@@ -53,7 +78,7 @@ class PositionController extends Controller
             ],
         );
 
-        $activity = 'Mengubah nama posisi: ' . $position->position_name;
+        $activity = 'Mengubah nama posisi: ' . $position->position_name . ' → ' . $request->position_name;
         $this->logActivity($activity);
 
         $position->position_name = $request->position_name;

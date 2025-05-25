@@ -30,18 +30,18 @@
                     <span class="font-semibold">Manajemen Staf</span>
                 </x-nav-link>
             </li>
-            {{-- <li>
-                <x-nav-link href="{{ route('voter') }}" :active="request()->routeIs(['voter', 'voter.create', 'voter.show', 'voter.show.import'])"
-                    class="flex items-center gap-3 px-6 py-3 border-white">
-                    <i class="fa-solid fa-user-check"></i>
-                    <span class="font-semibold">Data Peserta Terpilih</span>
-                </x-nav-link>
-            </li> --}}
             <li>
-                <x-nav-link href="{{ route('position') }}" :active="request()->routeIs(['position', 'position.edit'])"
+                <x-nav-link href="{{ route('position') }}" :active="request()->routeIs(['position', 'position.create', 'position.edit'])"
                     class="flex items-center gap-3 px-6 py-3 border-white">
                     <i class="fa-solid fa-list"></i>
                     <span class="font-semibold">Data Posisi</span>
+                </x-nav-link>
+            </li>
+            <li>
+                <x-nav-link href="{{ route('tag') }}" :active="request()->routeIs(['tag', 'tag.create', 'tag.edit'])"
+                    class="flex items-center gap-3 px-6 py-3 border-white">
+                    <i class="fa-solid fa-user-tag"></i>
+                    <span class="font-semibold">Data Tag</span>
                 </x-nav-link>
             </li>
             <li>

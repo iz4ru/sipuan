@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Data Posisi')
+@section('title', 'Data Tag')
 
 @section('content')
     <div class="flex-1 overflow-y-auto px-8 pt-6 pb-6">
@@ -8,15 +8,15 @@
             <div class="flex flex-col bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6">
                 <div class="bg-gradient-to-r from-[#05C1FF]/20 to-[#0FA3FF]/20 rounded-lg shadow-lg p-6">
                     <div class="">
-                        <h1 class="text-2xl lg:text-3xl font-bold text-[#0B8BDB] mb-2">Tabel Data Posisi</h1>
+                        <h1 class="text-2xl lg:text-3xl font-bold text-[#0B8BDB] mb-2">Tabel Data Tag</h1>
                         <p class="text-sm text-[#0B8BDB] mb-4 lg:text-base">
-                            Kelola data posisi dengan mudah serta memperbarui informasi posisi secara real-time.
+                            Kelola data tag dengan mudah serta memperbarui informasi tag secara real-time.
                         </p>
                     </div>
                     <div class="shadow-lg w-max">
-                        <a href="{{ route('position.create') }}"
+                        <a href="{{ route('tag.create') }}"
                             class="font-semibold flex items-center gap-3 px-4 py-3 lg:px-6 lg:py-4 bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-white rounded-md hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transform transition duration-100 ease-in-out">
-                            <span class="text-sm lg:text-base">Tambahkan Posisi</span>
+                            <span class="text-sm lg:text-base">Tambahkan Tag</span>
                             <i class="fa-solid fa-plus fa-sm lg:fa-md"></i>
                         </a>
                     </div>
@@ -51,7 +51,7 @@
                                 <th class="whitespace-nowrap text-[#0B8BDB] border border-gray-300 px-4 py-2 text-center">No
                                 </th>
                                 <th class="whitespace-nowrap text-[#0B8BDB] border border-gray-300 px-4 py-2 text-left">Nama
-                                    Posisi
+                                    Tag
                                 </th>
                                 @if (Auth::user()->role == 'admin')
                                     <th
@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($positions as $position)
+                            @foreach ($tags as $tag)
                                 <!-- Cek apakah positon dalam session -->
                                 <tr class="odd:bg-white even:bg-gray-100">
                                     <td
@@ -69,16 +69,16 @@
                                         <span class="flex justify-center">{{ $loop->iteration }}</span>
                                     </td>
                                     <td class="whitespace-nowrap text-gray-600 border border-gray-300 px-4 py-2">
-                                        {{ $position->position_name }}</td>
+                                        {{ $tag->tag_name }}</td>
                                     @if (Auth::user()->role == 'admin')
                                         <td class="whitespace-nowrap text-gray-600 border border-gray-300 px-4 py-2">
                                             <div class="flex justify-center items-center gap-2">
-                                                <a href="{{ route('position.edit', $position->id) }}"
+                                                <a href="{{ route('tag.edit', $tag->id) }}"
                                                     class="cursor-pointer text-[#4A95FD] hover:bg-[#4A95FD] hover:text-white rounded-md px-2 py-1">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 <span class="text-gray-300">|</span>
-                                                <form action="{{ route('position.delete', $position->id) }}" method="POST">
+                                                <form action="{{ route('tag.delete', $tag->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button
@@ -114,7 +114,7 @@
                         "info": "Menampilkan _START_ - _END_ dari _TOTAL_ data",
                         "infoEmpty": "Tidak ada data",
                         "infoFiltered": "(disaring dari _MAX_ total data)",
-                        "search": "Cari Posisi: ",
+                        "search": "Cari Tag: ",
                         "paginate": {
                             "first": "Awal",
                             "last": "Akhir",

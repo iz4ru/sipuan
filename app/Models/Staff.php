@@ -11,18 +11,9 @@ class Staff extends Model
     use HasFactory;
 
     protected $table = 'staffs';
-    protected $fillable =  [
-        'uuid',
-        'name',
-        'email',
-        'image',
-        'position_id',
-        'id_number',
-        'sex',
-        'phone',
-    ];
+    protected $fillable = ['uuid', 'name', 'email', 'image', 'position_id', 'id_number', 'sex', 'phone'];
 
-        public function position() 
+    public function position()
     {
         return $this->belongsTo(Position::class, 'position_id');
     }
@@ -32,7 +23,12 @@ class Staff extends Model
         return $this->hasMany(RateResult::class, 'staff_id');
     }
 
-        public static function boot()
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public static function boot()
     {
         parent::boot();
         static::creating(function ($model) {

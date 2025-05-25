@@ -34,6 +34,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Swiper -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- QR Code -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
     <title>@yield('title')</title>
 </head>
@@ -41,7 +43,7 @@
 <body class="bg-[#FAFAFA] overflow-x-hidden">
 
     @yield('content')
-    
+
 </body>
 
 <script>
@@ -81,6 +83,34 @@
                 },
             }
         });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fungsi untuk menangani animasi alert
+        const handleAlertAnimation = (alertId, duration = 2000, transitionDuration = 300) => {
+            const alert = document.getElementById(alertId);
+            if (alert) {
+                // Fade in
+                setTimeout(() => {
+                    alert.classList.remove('opacity-0');
+                    alert.classList.add('opacity-100');
+                }, 100); // Delay kecil untuk memastikan DOM siap
+
+                // Auto-close setelah durasi tertentu
+                setTimeout(() => {
+                    alert.classList.remove('opacity-100');
+                    alert.classList.add('opacity-0');
+                    setTimeout(() => alert.remove(),
+                        transitionDuration); // Hapus setelah transisi selesai
+                }, duration);
+            }
+        };
+
+        // Terapkan animasi untuk errorAlert dan successAlert
+        handleAlertAnimation('errorAlert', 2000, 150);
+        handleAlertAnimation('successAlert', 2000, 150);
     });
 </script>
 

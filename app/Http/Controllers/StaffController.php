@@ -29,7 +29,7 @@ class StaffController extends Controller
             });
         }
 
-        $staffs = $query->get();
+        $staffs = $query->with('position')->withAvg('rateResults', 'rate')->withCount('rateResults')->get();
 
         if ($request->wantsJson()) {
             $staffs = $query->with('position')->get();

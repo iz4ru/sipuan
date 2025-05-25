@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\RatingController;
@@ -18,7 +19,8 @@ Route::get('/', function () {return view('index');});
 Route::get('staff', [SearchController::class, 'index'])->name('search.staff');
 
 # Rate Staff
-Route::get('rate/{id}', [RatingController::class, 'index'])->name('rate');
+Route::get('rate/{uuid}', [RatingController::class, 'index'])->name('rate');
+Route::post('rate/{uuid}', [RatingController::class, 'store'])->name('rate.store');
 
 # Admin Authentication
 Route::middleware('guest') -> group(function (){
@@ -58,10 +60,19 @@ Route::middleware('auth') -> group(function (){
 
     # Position Management
     Route::get('position', [PositionController::class, 'index'])->name('position');
+    Route::get('position/create', [PositionController::class, 'create'])->name('position.create');
+    Route::post('position/store', [PositionController::class, 'store'])->name('position.store');
     Route::get('position/edit/{id}', [PositionController::class, 'show'])->name('position.edit');
     Route::put('position/update/{id}', [PositionController::class, 'update'])->name('position.update');
     Route::delete('position/delete/{id}', [PositionController::class, 'destroy'])->name('position.delete');
 
+    # Tag Management
+    Route::get('tag', [TagController::class, 'index'])->name('tag');
+    Route::get('tag/create', [TagController::class, 'create'])->name('tag.create');
+    Route::post('tag/store', [TagController::class, 'store'])->name('tag.store');
+    Route::get('tag/edit/{id}', [TagController::class, 'show'])->name('tag.edit');
+    Route::put('tag/update/{id}', [TagController::class, 'update'])->name('tag.update');
+    Route::delete('tag/delete/{id}', [TagController::class, 'destroy'])->name('tag.delete');
 
     # Logs
     Route::get('logs', [LogController::class, 'index'])->name('admin.logs');

@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Tag;
+use App\Models\User;
 use App\Models\Staff;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         // Staff::factory(10)->create();
+        // Tag::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Admin',

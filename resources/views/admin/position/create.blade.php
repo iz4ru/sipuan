@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Update Data Posisi')
+@section('title', 'Tambahkan Posisi')
 
 @section('content')
     <div class="flex-1 overflow-y-auto px-8 pt-6 pb-6">
@@ -8,8 +8,8 @@
             <div class="flex flex-col bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6">
                 <div class="bg-gradient-to-r from-[#05C1FF]/20 to-[#0FA3FF]/20 rounded-lg shadow-lg p-6">
                     <div class="">
-                        <h1 class="text-2xl lg:text-3xl font-bold text-[#0B8BDB] mb-2">Update Data Posisi</h1>
-                        <p class="text-sm text-[#0B8BDB] lg:text-base">Lengkapi data posisi di bawah ini dengan informasi terbaru untuk memastikan keakuratan data.</p>
+                        <h1 class="text-2xl lg:text-3xl font-bold text-[#0B8BDB] mb-2">Tambahkan Posisi</h1>
+                        <p class="text-sm text-[#0B8BDB] lg:text-base">Masukkan posisi atau jabatan staf yang ingin ditambahkan ke dalam sistem.</p>
                     </div>
                 </div>
                 <hr class="rounded border-t-2 border-[#B8B8B8]/50 my-8 mx-6">
@@ -49,25 +49,23 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('position.update', $position->id ) }}" method="POST" onsubmit="validateForm(event)"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('position.store') }}" method="POST" onsubmit="validateForm(event)">
                             @csrf
-                            @method('PUT')
                             <div class="space-y-4">
 
-                                <!-- Name -->
+                                <!-- Tag Name -->
                                 <div>
                                     <label for="position_name" class="text-gray-500 font-medium text-sm">Nama Posisi Bidang</label>
                                     <div class="relative">
                                         <i class="fa fa-briefcase absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
                                         <input placeholder="Masukkan Nama Posisi Bidang" type="text" name="position_name"
-                                            id="position_name" value="{{ $position->position_name }}"
+                                            id="position_name" value="{{ old('position_name') }}"
                                             class="text-sm w-full h-14 pl-12 placeholder:text-gray-300 border bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-md shadow-sm"
-                                            required autocomplete="off">
+                                            required autocomplete="position_name">
                                     </div>
                                 </div>
 
-                                <!-- Update Admin Button -->
+                                <!-- Register Position Button -->
                                 <div class="mt-6 w-full flex flex-column gap-4">
                                     <a href="{{ route('position') }}"
                                         class="mt-8 w-full px-6 py-4 bg-gray-400/80 hover:bg-gray-500/80 text-white rounded-lg transition-colors flex items-center justify-center gap-3">
@@ -75,7 +73,7 @@
                                     </a>
                                     <button type="submit"
                                         class="cursor-pointer mt-8 w-full px-6 py-4 bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] text-white rounded-lg transition-colors flex items-center justify-center gap-3">
-                                        <span class="font-semibold">Perbarui</span>
+                                        <span class="font-semibold">Tambahkan</span>
                                         <i class="fa-solid fa-chevron-right"></i>
                                     </button>
                                 </div>

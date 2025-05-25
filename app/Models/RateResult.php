@@ -9,13 +9,7 @@ class RateResult extends Model
 {
     use HasFactory;
     protected $table = 'rate_results';
-    protected $fillable = [
-        'id',
-        'staff_id',
-        'position_id',
-        'comment_id',
-        'rate',
-    ];
+    protected $fillable = ['id', 'staff_id', 'position_id', 'comment_id', 'rate'];
 
     public function staff()
     {
@@ -26,9 +20,15 @@ class RateResult extends Model
     {
         return $this->belongsTo(Position::class, 'position_id');
     }
-    
+
     public function comment()
     {
         return $this->belongsTo(Comment::class, 'comment_id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'rate_result_tag');
+    }
 }
+    

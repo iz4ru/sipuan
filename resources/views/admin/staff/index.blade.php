@@ -106,14 +106,12 @@
                                                     <div
                                                         class="w-full bg-[#22A06B]/20 hover:bg-[#22A06B] text-[#22A06B] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-4 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                         <i class="fa-solid fa-chart-bar fa-lg lg:fa-xl"></i>
-                                                        <span class="text-base font-semibold">Perolehan Rating:
-                                                            {{-- <span class="font-bold">
-                                                                @foreach ($votesByCandidate as $votes)
-                                                                    @if ($votes['id_candidate'] == $staff->id)
-                                                                        {{ $votes['total_votes'] }}
-                                                                    @endif
-                                                                @endforeach
-                                                            </span> --}}
+                                                        <span class="text-base font-semibold">Rating:
+                                                            <span class="font-bold">
+                                                                {{ number_format($staff->rate_results_avg_rate, 1) ?? '0.0' }}
+                                                                dari
+                                                                {{ $staff->rate_results_count }} ulasan
+                                                            </span>
                                                         </span>
                                                     </div>
                                                     <!-- Action Bar -->
@@ -258,14 +256,12 @@
                                         <div
                                             class="bg-[#22A06B]/20 hover:bg-[#22A06B] text-[#22A06B] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 flex items-center justify-center gap-2 transform transition ease-in-out">
                                             <i class="fa-solid fa-chart-bar fa-lg lg:fa-xl"></i>
-                                            <span class="text-base font-semibold">Perolehan Rating:
-                                                {{-- <span class="font-bold">
-                                                    @foreach ($votesByCandidate as $votes)
-                                                        @if ($votes['id_candidate'] == $staff->id)
-                                                            {{ $votes['total_votes'] }}
-                                                        @endif
-                                                    @endforeach
-                                                </span> --}}
+                                            <span class="text-base font-semibold">Rating:
+                                                <span class="font-bold">
+                                                    {{ number_format($staff->rate_results_avg_rate, 1) ?? '0.0' }}
+                                                    dari
+                                                    {{ $staff->rate_results_count }} ulasan
+                                                </span>
                                             </span>
                                         </div>
                                         <!-- Action Bar -->
