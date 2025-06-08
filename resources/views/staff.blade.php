@@ -27,13 +27,13 @@
                             Cari Nama Staf
                         </h2>
                         <div class="mt-4">
-                            <p class="text-gray-500 text-base leading-relaxed mx-auto lg:text-lg w-[400px]">
+                            <p class="text-gray-500 text-base leading-relaxed mx-auto lg:text-lg w-[300px] lg:w-[400px]">
                                 Tidak perlu berlama-lama untuk mencari seorang staf, Anda dapat mencarinya!~
                             </p>
                         </div>
 
                         <form action="{{ route('search.staff') }}" method="GET">
-                            <div class="my-8 relative w-full flex justify-center">
+                            <div class="my-8 relative max-w-7xl flex justify-center items-center">
                                 <div class="relative flex items-center gap-4 w-[400px] lg:w-[750px]">
                                     <!-- Label -->
                                     <label for="search" class="text-sm font-semibold text-gray-600 whitespace-nowrap">

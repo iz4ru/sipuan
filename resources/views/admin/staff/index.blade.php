@@ -101,11 +101,14 @@
                                                         <img src="{{ Storage::url('images/' . $staff->image) }}"
                                                             class="w-[240px] h-[240px] lg:w-[360px] lg:h-[360px] object-cover rounded-lg border border-gray-300 shadow-sm"
                                                             alt="">
+                                                        <div
+                                                            class="absolute inset-0 bg-gradient-to-t from-[#0FA3FF]/50 from-0% to-50% to-transparent opacity-50 rounded-t-xl pointer-events-none">
+                                                        </div>
                                                     </div>
                                                     <!-- Progress Bar -->
                                                     <div
                                                         class="w-full bg-[#22A06B]/20 hover:bg-[#22A06B] text-[#22A06B] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-4 flex items-center justify-center gap-2 transform transition ease-in-out">
-                                                        <i class="fa-solid fa-chart-bar fa-lg lg:fa-xl"></i>
+                                                        <i class="fa-solid fa-star fa-lg lg:fa-xl"></i>
                                                         <span class="text-base font-semibold">Rating:
                                                             <span class="font-bold">
                                                                 {{ number_format($staff->rate_results_avg_rate, 1) ?? '0.0' }}
@@ -251,11 +254,14 @@
                                             <img src="{{ Storage::url('images/' . $staff->image) }}"
                                                 class="w-[320px] h-[320px] lg:w-[320px] lg:h-[320px] object-cover rounded-lg border border-gray-300 shadow-sm"
                                                 alt="">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-[#0FA3FF]/50 from-0% to-50% to-transparent opacity-50 rounded-t-xl pointer-events-none">
+                                            </div>
                                         </div>
                                         <!-- Progress Bar -->
                                         <div
                                             class="bg-[#22A06B]/20 hover:bg-[#22A06B] text-[#22A06B] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 flex items-center justify-center gap-2 transform transition ease-in-out">
-                                            <i class="fa-solid fa-chart-bar fa-lg lg:fa-xl"></i>
+                                            <i class="fa-solid fa-star fa-lg lg:fa-xl"></i>
                                             <span class="text-base font-semibold">Rating:
                                                 <span class="font-bold">
                                                     {{ number_format($staff->rate_results_avg_rate, 1) ?? '0.0' }}

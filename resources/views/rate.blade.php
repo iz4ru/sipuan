@@ -136,17 +136,17 @@
                                                     class="text-gray-700 mb-2 font-semibold text-left whitespace-nowrap text-lg">
                                                     Tag:</p>
                                                 <div class="flex flex-wrap gap-2 items-start justify-start">
-                                                    <template x-for="tag in availableTags" :key="tag">
+                                                    <template x-for="(tag, index) in displayTags" :key="`tag-${index}`">
                                                         <button type="button"
-                                                            @click="tags.includes(tag) ? tags = tags.filter(t => t !== tag) : (tags.length < maxTags && tags.push(tag))"
+                                                            @click="toggleTag(tag)"
                                                             class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
-                                                            :class="tags.includes(tag) ?
+                                                            :class="isTagSelected(tag) ?
                                                                 'bg-[#05C1FF] text-white shadow-md' :
-                                                                (tags.length >= maxTags ?
+                                                                (selectedTags.length >= maxTags ?
                                                                     'bg-gray-200 text-gray-400 cursor-not-allowed' :
                                                                     'bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white'
                                                                 )"
-                                                            :disabled="!tags.includes(tag) && tags.length >= maxTags">
+                                                            :disabled="!isTagSelected(tag) && selectedTags.length >= maxTags">
                                                             <span x-text="tag"></span>
                                                         </button>
                                                     </template>
@@ -154,12 +154,12 @@
                                                     @if ($tags->count() > 3)
                                                         <!-- Add More Button -->
                                                         <button type="button"
-                                                            @click="if(tags.length < maxTags) showModal = true"
-                                                            :class="tags.length >= maxTags ?
+                                                            @click="if(selectedTags.length < maxTags) showModal = true"
+                                                            :class="selectedTags.length >= maxTags ?
                                                                 'cursor-not-allowed bg-gray-200 text-gray-400' :
                                                                 'bg-gray-300 hover:bg-gray-400 text-gray-700'"
                                                             class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
-                                                            :disabled="tags.length >= maxTags" aria-label="Tambah Tag">
+                                                            :disabled="selectedTags.length >= maxTags" aria-label="Tambah Tag">
                                                             +
                                                         </button>
                                                     @endif
@@ -167,7 +167,7 @@
                                             </div>
 
                                             <!-- Hidden inputs for form submission -->
-                                            <template x-for="(tag, index) in tags" :key="index">
+                                            <template x-for="(tag, index) in selectedTags" :key="`selected-${index}`">
                                                 <input type="hidden" name="tags[]" :value="tag" />
                                             </template>
 
@@ -192,33 +192,21 @@
                                                         Tag Tambahan</h2>
 
                                                     <div class="flex flex-wrap gap-3 mb-6 justify-center">
-                                                        <template x-for="tag in moreTags" :key="tag">
+                                                        <template x-for="(tag, index) in moreTags" :key="`modal-${index}`">
                                                             <button type="button"
-                                                                @click="
-                                    if (tags.includes(tag)) {
-                                        tags = tags.filter(t => t !== tag);
-                                        availableTags = availableTags.filter(t => t !== tag);
-                                    } else if (tags.length < maxTags) {
-                                        tags.push(tag);
-                                        if (!availableTags.includes(tag)) availableTags.push(tag);
-                                    }
-                                "
+                                                                @click="toggleTag(tag)"
                                                                 class="px-4 py-1.5 rounded-full text-sm font-medium select-none transition-colors"
-                                                                :class="tags.includes(tag) ?
-                                                                    'bg-[#05C1FF] text-white shadow-md cursor-default' :
-                                                                    (tags.length >= maxTags ?
-                                                                        'bg-gray-200 text-gray-400 cursor-not-allowed' :
-                                                                        'bg-gray-200 hover:bg-[#05C1FF] hover:text-white cursor-pointer'
-                                                                    )"
-                                                                :disabled="!tags.includes(tag) && tags.length >= maxTags"
-                                                                aria-pressed="false">
+                                                                :class="selectedTags.length >= maxTags ?
+                                                                    'bg-gray-200 text-gray-400 cursor-not-allowed' :
+                                                                    'bg-gray-200 hover:bg-[#05C1FF] hover:text-white cursor-pointer'"
+                                                                :disabled="selectedTags.length >= maxTags">
                                                                 <span x-text="tag"></span>
                                                             </button>
                                                         </template>
                                                     </div>
 
                                                     <div class="flex justify-center">
-                                                        <button type="button" @click="showModal = false"
+                                                        <button type="button" @click="closeModal()"
                                                             class="cursor-pointer px-5 py-2 bg-[#05C1FF] text-white rounded-md hover:bg-[#0494da] text-sm font-semibold select-none focus:outline-none focus:ring-2 focus:ring-[#05C1FF] focus:ring-offset-1 transition">
                                                             Selesai
                                                         </button>
@@ -267,14 +255,14 @@
                                                 <div class="flex items-center gap-2">
                                                     <i class="fa-brands fa-whatsapp text-gray-600"></i>
                                                     <p class="text-gray-700">WhatsApp:
-                                                        <a href="#" class="text-[#05C1FF] hover:underline">Klik
+                                                        <a href="{{ $whatsappNumber }}" class="text-[#05C1FF] hover:underline">Klik
                                                             Untuk Kirim Pesan</a>
                                                     </p>
                                                 </div>
                                                 <div class="flex items-center gap-2">
                                                     <i class="fa-solid fa-envelope text-gray-600"></i>
                                                     <p class="text-gray-700">E-mail:
-                                                        <a href="#" class="text-[#05C1FF] hover:underline">Klik
+                                                        <a href="{{ $staffEmail }}" class="text-[#05C1FF] hover:underline">Klik
                                                             Untuk Kirim E-mail</a>
                                                     </p>
                                                 </div>
@@ -341,7 +329,7 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('tagManager', () => ({
-                tags: [],
+                selectedTags: [],
                 availableTags: [],
                 moreTags: [],
                 showModal: false,
@@ -351,6 +339,47 @@
                     const allTags = @json($tags->toArray());
                     this.availableTags = allTags.slice(0, 3);
                     this.moreTags = allTags.slice(3);
+                },
+
+                get displayTags() {
+                    const selectedFromMore = this.selectedTags.filter(tag => 
+                        !this.availableTags.includes(tag) && !this.moreTags.includes(tag)
+                    );
+                    return [...this.availableTags, ...selectedFromMore];
+                },
+
+                isTagSelected(tag) {
+                    return this.selectedTags.includes(tag);
+                },
+
+                toggleTag(tag) {
+                    const index = this.selectedTags.indexOf(tag);
+                    
+                    if (index > -1) {
+                        this.selectedTags.splice(index, 1);
+                        
+                        const allTags = @json($tags->toArray());
+                        const originalIndex = allTags.indexOf(tag);
+                        if (originalIndex >= 3 && !this.moreTags.includes(tag)) {
+                            this.moreTags.push(tag);
+                        }
+                    } else if (this.selectedTags.length < this.maxTags) {
+                        this.selectedTags.push(tag);
+                        
+                        if (this.moreTags.includes(tag)) {
+                            this.moreTags = this.moreTags.filter(t => t !== tag);
+                        }
+
+                        if (this.selectedTags.length >= this.maxTags) {
+                            setTimeout(() => {
+                                this.showModal = false;
+                            }, 300);
+                        }
+                    }
+                },
+
+                closeModal() {
+                    this.showModal = false;
                 }
             }));
         });

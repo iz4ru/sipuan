@@ -23,7 +23,7 @@
                     </div>
 
                     <ul class="text-sm list-disc pl-5 mb-8">
-                        <li>Pastikan nama tag yang diubah tidak sama dengan yang lainnya.</li>
+                        <li>Pastikan nama tag yang ditambahkan tidak sama dengan yang lainnya.</li>
                     </ul>
 
                     <!-- Form Pendaftaran -->

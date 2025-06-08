@@ -6,6 +6,7 @@ use App\Models\Log;
 use App\Models\Tag;
 use App\Models\Staff;
 use App\Models\Position;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -190,12 +191,83 @@ class StaffController extends Controller
 
     public function preview($uuid)
     {
-$x['staff'] = Staff::where('uuid', $uuid)->with(['rateResults', 'tags'])->withAvg('rateResults', 'rate')->withCount('rateResults')->firstOrFail();
+        $x['staff'] = Staff::where('uuid', $uuid)
+            ->with(['rateResults', 'tags'])
+            ->withAvg('rateResults', 'rate')
+            ->withCount('rateResults')
+            ->firstOrFail();
+
+        $x['totalTags'] = $x['staff']->tags->count();
+        $x['totalComments'] = $x['staff']->comments->count();
+
+        // Load initial comments (first 5) dengan full text untuk JavaScript
+        $x['initialComments'] = $x['staff']
+            ->comments()
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get()
+            ->map(function ($comment) {
+                return [
+                    'id' => $comment->id,
+                    'comment' => $comment->comment,
+                    'comment_preview' => Str::limit($comment->comment, 150, '...'),
+                    'is_long' => strlen($comment->comment) > 150,
+                    'created_at' => $comment->created_at,
+                ];
+            });
+
+        $allTags = Tag::all();
+
+        $x['tagCounts'] = $allTags
+            ->map(function ($tag) use ($x) {
+                $count = $x['staff']->tags->where('id', $tag->id)->count();
+
+                return [
+                    'id' => $tag->id,
+                    'tag_name' => $tag->tag_name,
+                    'total' => $count,
+                ];
+            })
+            ->sortByDesc('total')
+            ->values();
 
         $x['positions'] = Position::all();
         $x['tags'] = Tag::all();
 
         return view('admin.staff.preview', $x);
+    }
+
+    public function loadComments($uuid)
+    {
+        $staff = Staff::where('uuid', $uuid)->firstOrFail();
+
+        $page = request('page', 1);
+        $perPage = request('per_page', 5);
+        $offset = ($page - 1) * $perPage;
+
+        $comments = $staff
+            ->comments()
+            ->orderBy('created_at', 'desc')
+            ->offset($offset)
+            ->limit($perPage)
+            ->get()
+            ->map(function ($comment) {
+                return [
+                    'id' => $comment->id,
+                    'comment' => $comment->comment,
+                    'comment_preview' => Str::limit($comment->comment, 150, '...'),
+                    'is_long' => strlen($comment->comment) > 150,
+                    'created_at' => $comment->created_at,
+                ];
+            });
+
+        $hasMore = $staff->comments()->count() > $offset + $perPage;
+
+        return response()->json([
+            'comments' => $comments,
+            'hasMore' => $hasMore,
+            'nextPage' => $page + 1,
+        ]);
     }
 
     public function destroy(Request $request, $uuid)

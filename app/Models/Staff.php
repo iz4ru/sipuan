@@ -28,9 +28,14 @@ class Staff extends Model
         return $this->hasMany(RateResultTag::class, 'staff_id');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'rate_result_tag', 'staff_id', 'tag_id');
+    }
+
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'staff_id');
     }
 
     public static function boot()

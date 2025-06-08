@@ -58,6 +58,9 @@ Route::middleware('auth') -> group(function (){
     Route::delete('staff-mgmt/delete/{uuid}', [StaffController::class, 'destroy'])->name('staff.mgmt.delete');
     Route::get('staff-mgmt/details/{uuid}', [StaffController::class, 'preview'])->name('staff.mgmt.details');
 
+    # Load Comments
+    Route::get('staff-mgmt/details/{uuid}/comments', [StaffController::class, 'loadComments'])->name('staff.mgmt.load_comments');
+
     # Position Management
     Route::get('position', [PositionController::class, 'index'])->name('position');
     Route::get('position/create', [PositionController::class, 'create'])->name('position.create');

@@ -15,10 +15,15 @@ class RatingController extends Controller
 {
     public function index($uuid)
     {
-        $x['staff'] = Staff::where('uuid', $uuid)->withAvg('rateResults', 'rate')->withCount('rateResults')->firstOrFail();
+        $staff = Staff::where('uuid', $uuid)->withAvg('rateResults', 'rate')->withCount('rateResults')->firstOrFail();
 
+        $x['staff'] = $staff;
         $x['positions'] = Position::all();
         $x['tags'] = Tag::pluck('tag_name');
+
+        $cleanPhone = preg_replace('/^0/', '62', $staff->phone);
+        $x['whatsappNumber'] = 'https://wa.me/' . $cleanPhone;
+        $x['staffEmail'] = 'https://mail.google.com/mail/u/0/?fs=1&to=' . $staff->email . '&su=&body=&tf=cm';
 
         return view('rate', $x);
     }
