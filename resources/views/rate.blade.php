@@ -119,54 +119,52 @@
                                 <!-- Card Kanan - Form Penilaian -->
                                 <div
                                     class="shadow-lg flex flex-col gap-4 bg-white/40 backdrop-blur-lg w-full lg:w-3/4 py-8 px-6 rounded-xl items-start justify-start">
-                                    <p class="text-gray-700 text-lg font-medium text-start">Hai! Silakan berikan ulasan
-                                        dan
-                                        saran untuk saya. Terima kasih! :)</p>
+                                    <p class="text-gray-700 text-lg font-medium text-start">
+                                        Hai! Silakan berikan ulasan dan saran untuk saya. Terima kasih! :)
+                                    </p>
 
-                                    <!-- Tag Input Section -->
-                                    <div x-data="tagManager" x-init="init()"
-                                        class="w-full mt-1 flex flex-col gap-3 font-sans text-gray-800">
+                                    <form action="{{ route('rate.store', $staff->uuid) }}" method="POST" id="ratingForm"
+                                        class="w-full flex flex-col gap-4">
+                                        @csrf
 
-                                        <!-- Tag Label & Tag Buttons -->
-                                        <div class="flex items-center gap-4">
-                                            <p class="text-gray-700 mb-2 font-semibold text-left whitespace-nowrap text-lg">
-                                                Tag:</p>
-                                            <div class="flex flex-wrap gap-2 items-start justify-start">
-                                                <!-- Tag buttons -->
-                                                <template x-for="tag in availableTags" :key="tag">
-                                                    <button type="button"
-                                                        @click="tags.includes(tag) ? tags = tags.filter(t => t !== tag) : (tags.length < maxTags && tags.push(tag))"
-                                                        class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
-                                                        :class="tags.includes(tag) ?
-                                                            'bg-[#05C1FF] text-white shadow-md' :
-                                                            (tags.length >= maxTags ?
-                                                                'bg-gray-200 text-gray-400 cursor-not-allowed' :
-                                                                'bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white'
-                                                            )"
-                                                        :disabled="!tags.includes(tag) && tags.length >= maxTags">
-                                                        <span x-text="tag"></span>
-                                                    </button>
-                                                </template>
+                                        <!-- Tag Input Section -->
+                                        <div x-data="tagManager" x-init="init()"
+                                            class="w-full mt-1 flex flex-col gap-3 font-sans text-gray-800">
+                                            <!-- Tag Label & Tag Buttons -->
+                                            <div class="flex items-center gap-4">
+                                                <p
+                                                    class="text-gray-700 mb-2 font-semibold text-left whitespace-nowrap text-lg">
+                                                    Tag:</p>
+                                                <div class="flex flex-wrap gap-2 items-start justify-start">
+                                                    <template x-for="tag in availableTags" :key="tag">
+                                                        <button type="button"
+                                                            @click="tags.includes(tag) ? tags = tags.filter(t => t !== tag) : (tags.length < maxTags && tags.push(tag))"
+                                                            class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
+                                                            :class="tags.includes(tag) ?
+                                                                'bg-[#05C1FF] text-white shadow-md' :
+                                                                (tags.length >= maxTags ?
+                                                                    'bg-gray-200 text-gray-400 cursor-not-allowed' :
+                                                                    'bg-gray-300 text-gray-700 hover:bg-gray-400 hover:text-white'
+                                                                )"
+                                                            :disabled="!tags.includes(tag) && tags.length >= maxTags">
+                                                            <span x-text="tag"></span>
+                                                        </button>
+                                                    </template>
 
-                                                @if ($tags->count() > 3)
-                                                    <!-- Add More Button -->
-                                                    <button type="button"
-                                                        @click="if(tags.length < maxTags) showModal = true"
-                                                        :class="tags.length >= maxTags ?
-                                                            'cursor-not-allowed bg-gray-200 text-gray-400' :
-                                                            'bg-gray-300 hover:bg-gray-400 text-gray-700'"
-                                                        class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
-                                                        :disabled="tags.length >= maxTags" aria-label="Tambah Tag">
-                                                        +
-                                                    </button>
-                                                @endif
+                                                    @if ($tags->count() > 3)
+                                                        <!-- Add More Button -->
+                                                        <button type="button"
+                                                            @click="if(tags.length < maxTags) showModal = true"
+                                                            :class="tags.length >= maxTags ?
+                                                                'cursor-not-allowed bg-gray-200 text-gray-400' :
+                                                                'bg-gray-300 hover:bg-gray-400 text-gray-700'"
+                                                            class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
+                                                            :disabled="tags.length >= maxTags" aria-label="Tambah Tag">
+                                                            +
+                                                        </button>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
-
-
-                                        <form action="{{ route('rate.store', $staff->uuid) }}" method="POST"
-                                            id="ratingForm">
-                                            @csrf
 
                                             <!-- Hidden inputs for form submission -->
                                             <template x-for="(tag, index) in tags" :key="index">
@@ -191,21 +189,20 @@
                                                     class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full z-50 font-sans text-gray-800">
 
                                                     <h2 class="text-xl font-semibold text-[#05C1FF] mb-4 text-center">Pilih
-                                                        Tag
-                                                        Tambahan</h2>
+                                                        Tag Tambahan</h2>
 
                                                     <div class="flex flex-wrap gap-3 mb-6 justify-center">
                                                         <template x-for="tag in moreTags" :key="tag">
                                                             <button type="button"
                                                                 @click="
-    if (tags.includes(tag)) {
-        tags = tags.filter(t => t !== tag);
-        availableTags = availableTags.filter(t => t !== tag);
-    } else if (tags.length < maxTags) {
-        tags.push(tag);
-        if (!availableTags.includes(tag)) availableTags.push(tag);
-    }
-"
+                                    if (tags.includes(tag)) {
+                                        tags = tags.filter(t => t !== tag);
+                                        availableTags = availableTags.filter(t => t !== tag);
+                                    } else if (tags.length < maxTags) {
+                                        tags.push(tag);
+                                        if (!availableTags.includes(tag)) availableTags.push(tag);
+                                    }
+                                "
                                                                 class="px-4 py-1.5 rounded-full text-sm font-medium select-none transition-colors"
                                                                 :class="tags.includes(tag) ?
                                                                     'bg-[#05C1FF] text-white shadow-md cursor-default' :
@@ -226,121 +223,112 @@
                                                             Selesai
                                                         </button>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                    </div>
-
-                                    <div>
-                                        <p class="text-gray-500 mb-2 font-medium text-left">Berikan Nilai Terhadap
-                                            Pelayanan
-                                        </p>
-
-                                        <div x-data="{ rating: 0, hoverRating: 0 }" class="flex gap-2 items-center mt-4">
-                                            <template x-for="star in 5" :key="star">
-                                                <button type="button" @mouseover="hoverRating = star"
-                                                    @mouseleave="hoverRating = 0" @click="rating = star"
-                                                    :aria-label="'Beri nilai ' + star"
-                                                    class="cursor-pointer text-gray-400 transition-all transform duration-150 ease-in-out hover:scale-110 focus:outline-none"
-                                                    :class="{ '!text-[#FFD32C]': star <= (hoverRating || rating) }">
-                                                    <i class="fa-solid fa-star text-3xl md:text-4xl"></i>
-                                                </button>
-                                            </template>
-
-                                            <!-- Optional: Label dinamis -->
-                                            <span
-                                                x-text="rating > 0 ? `${rating}/5` : (hoverRating > 0 ? `${hoverRating}/5` : '')"
-                                                class="text-base text-gray-500 ml-2 font-bold"></span>
-
-                                            <!-- Hidden Input buat kirim ke server -->
-                                            <input type="hidden" name="rate" :value="rating">
                                         </div>
-                                    </div>
 
-                                    <div class="w-full mt-4">
-                                        <p class="text-gray-500 mb-2 font-medium text-left">Berikan Saran atau Komentar
-                                            Positif</p>
-
-                                        <div class="relative">
-                                            <i class="fa fa-comment absolute left-4 top-4 text-gray-300"></i>
-                                            <textarea name="comment" id="comment"
-                                                class="w-full border placeholder:text-gray-300 border-gray-300 rounded-lg pl-12 pr-3 pt-3 pb-3 focus:outline-none focus:ring-2 focus:ring-[#05C1FF] bg-white/70"
-                                                rows="4" placeholder="Sangat Bagus! Pelayanan yang Terbaik"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-full border border-gray-200 rounded-lg p-4 bg-white/50 mt-1">
-                                        <p class="text-gray-500 font-bold mb-4 text-left">KONTAK</p>
-                                        <div class="space-y-2">
-                                            <div class="flex items-center gap-2">
-                                                <i class="fa-brands fa-whatsapp text-gray-600"></i>
-                                                <p class="text-gray-700">WhatsApp:
-                                                    <a href="#" class="text-[#05C1FF] hover:underline">Klik
-                                                        Untuk
-                                                        Kirim Pesan</a>
-                                                </p>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <i class="fa-solid fa-envelope text-gray-600"></i>
-                                                <p class="text-gray-700">E-mail:
-                                                    <a href="#" class="text-[#05C1FF] hover:underline">Klik
-                                                        Untuk
-                                                        Kirim E-mail</a>
-                                                </p>
+                                        <!-- Rating -->
+                                        <div>
+                                            <p class="text-gray-500 mb-2 font-medium text-left">Berikan Nilai Terhadap
+                                                Pelayanan</p>
+                                            <div x-data="{ rating: 0, hoverRating: 0 }" class="flex gap-2 items-center mt-4">
+                                                <template x-for="star in 5" :key="star">
+                                                    <button type="button" @mouseover="hoverRating = star"
+                                                        @mouseleave="hoverRating = 0" @click="rating = star"
+                                                        :aria-label="'Beri nilai ' + star"
+                                                        class="cursor-pointer text-gray-400 transition-all transform duration-150 ease-in-out hover:scale-110 focus:outline-none"
+                                                        :class="{ '!text-[#FFD32C]': star <= (hoverRating || rating) }">
+                                                        <i class="fa-solid fa-star text-3xl md:text-4xl"></i>
+                                                    </button>
+                                                </template>
+                                                <span
+                                                    x-text="rating > 0 ? `${rating}/5` : (hoverRating > 0 ? `${hoverRating}/5` : '')"
+                                                    class="text-base text-gray-500 ml-2 font-bold"></span>
+                                                <input type="hidden" name="rate" :value="rating">
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div x-data="{ open: false }" class="w-full flex justify-end mt-2">
-                                        <button type="button" @click="open = !open; console.log('open')"
-                                            class="cursor-pointer mt-2 button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-8 py-3 rounded-md text-sm font-bold hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Beri Nilai Pelayanan
-                                            <i class="fa-solid fa-chevron-right fa-sm"></i>
-                                        </button>
-                                        <div x-show="open" x-cloak
-                                            class="fixed top-0 left-0 w-full h-full inset-0 bg-black/20 rounded-xl flex justify-center items-center z-50">
+                                        <!-- Komentar -->
+                                        <div class="w-full mt-4">
+                                            <p class="text-gray-500 mb-2 font-medium text-left">Berikan Saran atau Komentar
+                                                Positif</p>
+                                            <div class="relative">
+                                                <i class="fa fa-comment absolute left-4 top-4 text-gray-300"></i>
+                                                <textarea name="comment" id="comment"
+                                                    class="w-full border placeholder:text-gray-300 border-gray-300 rounded-lg pl-12 pr-3 pt-3 pb-3 focus:outline-none focus:ring-2 focus:ring-[#05C1FF] bg-white/70"
+                                                    rows="4" placeholder="Sangat Bagus! Pelayanan yang Terbaik"></textarea>
+                                            </div>
                                         </div>
-                                        <div x-show="open"
-                                            x-transition:enter="transition ease-out duration-100 transform"
-                                            x-transition:enter-start="opacity-0 scale-95"
-                                            x-transition:enter-end="opacity-100 scale-100"
-                                            x-transition:leave="transition ease-in duration-75 transform"
-                                            x-transition:leave-start="opacity-100 scale-100"
-                                            x-transition:leave-end="opacity-0 scale-95" @click.away="open = false" x-cloak
-                                            class="fixed top-0 left-0 w-full h-full rounded-xl flex justify-center items-center z-50">
-                                            <div
-                                                class="p-6 w-[360px] lg:w-[540px] bg-white/90 backdrop-blur-lg border-gray-200 rounded-lg shadow-lg items-center justify-center">
+
+                                        <!-- Kontak -->
+                                        <div class="w-full border border-gray-200 rounded-lg p-4 bg-white/50 mt-1">
+                                            <p class="text-gray-500 font-bold mb-4 text-left">KONTAK</p>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fa-brands fa-whatsapp text-gray-600"></i>
+                                                    <p class="text-gray-700">WhatsApp:
+                                                        <a href="#" class="text-[#05C1FF] hover:underline">Klik
+                                                            Untuk Kirim Pesan</a>
+                                                    </p>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fa-solid fa-envelope text-gray-600"></i>
+                                                    <p class="text-gray-700">E-mail:
+                                                        <a href="#" class="text-[#05C1FF] hover:underline">Klik
+                                                            Untuk Kirim E-mail</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div x-data="{ open: false }" class="w-full flex justify-end mt-2">
+                                            <button type="button" @click="open = !open"
+                                                class="cursor-pointer mt-2 button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-8 py-3 rounded-md text-sm font-bold hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
+                                                Beri Nilai Pelayanan
+                                                <i class="fa-solid fa-chevron-right fa-sm"></i>
+                                            </button>
+                                            <div x-show="open" x-cloak
+                                                class="fixed top-0 left-0 w-full h-full inset-0 bg-black/20 rounded-xl flex justify-center items-center z-50">
+                                            </div>
+                                            <div x-show="open"
+                                                x-transition:enter="transition ease-out duration-100 transform"
+                                                x-transition:enter-start="opacity-0 scale-95"
+                                                x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="transition ease-in duration-75 transform"
+                                                x-transition:leave-start="opacity-100 scale-100"
+                                                x-transition:leave-end="opacity-0 scale-95" @click.away="open = false"
+                                                x-cloak
+                                                class="fixed top-0 left-0 w-full h-full rounded-xl flex justify-center items-center z-50">
                                                 <div
-                                                    class= "bg-gradient-to-r from-[#05C1FF]/20 to-[#0FA3FF]/20 backdrop-blur-lg py-2 rounded-lg">
-                                                    <h2
-                                                        class="mb-2 text-xl font-bold text-[#0FA3FF] text-center px-4 translate-y-1">
-                                                        Konfirmasi Penilaian</h2>
-                                                </div>
-                                                <hr class="rounded border-t-2 border-[#B8B8B8]/50 my-6 mx-full">
-                                                <p class="mb-6 font-medium text-gray-600 text-center">Yakin untuk
-                                                    mengirim penilaian ini? Pastikan semua informasi sudah benar
-                                                    sebelum mengirim.</p>
-                                                </p>
-                                                <div class="flex flex-row gap-2 justify-between">
-                                                    <button type="button" @click="open = false"
-                                                        class="cursor-pointer px-5 py-2.5 bg-gray-400 hover:bg-gray-500 transition-colors rounded-lg">
-                                                        <span class="text-white font-semibold">Kembali</span>
-                                                    </button>
-                                                    <button type="submit" id="submitButton"
-                                                        class="cursor-pointer px-5 py-2.5 bg-[#0FA3FF] hover:bg-[#006BAD] transition-colors rounded-lg">
-                                                        <span class="text-[white] font-semibold">Konfirmasi</span>
-                                                    </button>
+                                                    class="p-6 w-[360px] lg:w-[540px] bg-white/90 backdrop-blur-lg border-gray-200 rounded-lg shadow-lg items-center justify-center">
+                                                    <div
+                                                        class="bg-gradient-to-r from-[#05C1FF]/20 to-[#0FA3FF]/20 backdrop-blur-lg py-2 rounded-lg">
+                                                        <h2
+                                                            class="mb-2 text-xl font-bold text-[#0FA3FF] text-center px-4 translate-y-1">
+                                                            Konfirmasi Penilaian</h2>
+                                                    </div>
+                                                    <hr class="rounded border-t-2 border-[#B8B8B8]/50 my-6 mx-full">
+                                                    <p class="mb-6 font-medium text-gray-600 text-center">Yakin untuk
+                                                        mengirim penilaian ini? Pastikan semua informasi sudah benar sebelum
+                                                        mengirim.</p>
+                                                    <div class="flex flex-row gap-2 justify-between">
+                                                        <button type="button" @click="open = false"
+                                                            class="cursor-pointer px-5 py-2.5 bg-gray-400 hover:bg-gray-500 transition-colors rounded-lg">
+                                                            <span class="text-white font-semibold">Kembali</span>
+                                                        </button>
+                                                        <button type="submit" id="submitButton"
+                                                            class="cursor-pointer px-5 py-2.5 bg-[#0FA3FF] hover:bg-[#006BAD] transition-colors rounded-lg">
+                                                            <span class="text-[white] font-semibold">Konfirmasi</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </form>
                                 </div>
-
                             </div>
                         </div>
-                        </form>
-
                     </div>
                 </div>
             </div>
@@ -360,7 +348,7 @@
                 maxTags: 3,
 
                 init() {
-                    const allTags = @json($tags);
+                    const allTags = @json($tags->toArray());
                     this.availableTags = allTags.slice(0, 3);
                     this.moreTags = allTags.slice(3);
                 }

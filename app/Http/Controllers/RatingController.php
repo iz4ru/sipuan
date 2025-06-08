@@ -25,18 +25,20 @@ class RatingController extends Controller
 
     public function store(Request $request, $uuid)
     {
-        $request->validate([
-            'rate' => 'required|numeric|min:1|max:5',
-            'comment' => 'nullable|string',
-            'tags' => 'array',
-            'tags.*' => 'string|distinct|max:50',
-        ],
-        [
-            'rate.required' => 'Rating tidak boleh kosong!',
-            'rate.min' => 'Rating tidak boleh kosong!',
-            'rate.max' => 'Rating maksimal 5!',
-            'comment.string' => 'Komentar harus berupa teks!',
-        ]);
+        $request->validate(
+            [
+                'rate' => 'required|numeric|min:1|max:5',
+                'comment' => 'nullable|string',
+                'tags' => 'array',
+                'tags.*' => 'string|distinct|max:50',
+            ],
+            [
+                'rate.required' => 'Rating tidak boleh kosong!',
+                'rate.min' => 'Rating tidak boleh kosong!',
+                'rate.max' => 'Rating maksimal 5!',
+                'comment.string' => 'Komentar harus berupa teks!',
+            ],
+        );
 
         $staff = Staff::where('uuid', $uuid)->firstOrFail();
 
@@ -56,7 +58,13 @@ class RatingController extends Controller
 
         if ($request->has('tags')) {
             $tags = Tag::whereIn('tag_name', $request->tags)->pluck('id');
-            $rateResult->tags()->sync($tags);
+
+            $pivotData = [];
+            foreach ($tags as $tagId) {
+                $pivotData[$tagId] = ['staff_id' => $staff->id];
+            }
+
+            $rateResult->tags()->attach($pivotData);
         }
 
         return redirect()->back()->with('success', 'Rating telah sukses dilakukan!');

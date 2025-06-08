@@ -28,7 +28,6 @@ class RateResult extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'rate_result_tag');
+        return $this->belongsToMany(Tag::class, 'rate_result_tag')->withPivot('staff_id');
     }
 }
-    
