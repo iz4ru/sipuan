@@ -23,6 +23,11 @@ class Staff extends Model
         return $this->hasMany(RateResult::class, 'staff_id');
     }
 
+    public function rateResultTags()
+    {
+        return $this->hasMany(RateResultTag::class, 'staff_id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

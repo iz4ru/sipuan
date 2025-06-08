@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('rate_result_tag', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('staff_id');
             $table->unsignedBigInteger('rate_result_id');
             $table->unsignedBigInteger('tag_id');
             $table->timestamps();
 
+            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
             $table->foreign('rate_result_id')->references('id')->on('rate_results')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });

@@ -56,7 +56,7 @@ Route::middleware('auth') -> group(function (){
     Route::get('staff-mgmt/edit/{uuid}', [StaffController::class, 'show'])->name('staff.mgmt.edit');
     Route::put('staff-mgmt/update/{uuid}', [StaffController::class, 'update'])->name('staff.mgmt.update');
     Route::delete('staff-mgmt/delete/{uuid}', [StaffController::class, 'destroy'])->name('staff.mgmt.delete');
-    Route::get('staff-mgmt/preview/{uuid}', [StaffController::class, 'preview'])->name('staff.mgmt.preview');
+    Route::get('staff-mgmt/details/{uuid}', [StaffController::class, 'preview'])->name('staff.mgmt.details');
 
     # Position Management
     Route::get('position', [PositionController::class, 'index'])->name('position');

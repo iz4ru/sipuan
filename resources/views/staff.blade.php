@@ -43,7 +43,7 @@
                                     <!-- Input Group -->
                                     <div class="relative flex-1">
                                         <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
-                                        <input placeholder="Masukkan Nama Staf" type="search" name="search" id="search"
+                                        <input placeholder="Cari Nama, Bidang, atau ID" type="search" name="search" id="search"
                                             value="{{ request('search') }}"
                                             class="w-full h-12 pl-12 placeholder:text-sm placeholder:text-gray-300 border bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-lg shadow-sm"
                                             autofocus autocomplete="search">
@@ -91,7 +91,7 @@
                                                             <i class="fa-solid fa-star-half-stroke fa-xl"></i>
                                                         @else
                                                             {{-- empty star --}}
-                                                            <i class="fa-solid fa-star fa-xl text-gray-400"></i>
+                                                            <i class="fa-regular fa-star fa-xl text-[#FFD32C]"></i>
                                                         @endif
                                                     @endfor
                                                 </div>

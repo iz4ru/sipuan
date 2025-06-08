@@ -56,7 +56,7 @@
                             <!-- Input Group -->
                             <div class="relative flex-1">
                                 <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
-                                <input placeholder="Masukkan Nama Staf" type="search" name="search" id="search"
+                                <input placeholder="Cari Nama, Bidang, atau ID" type="search" name="search" id="search"
                                     value="{{ request('search') }}"
                                     class="w-full h-12 pl-12 placeholder:text-sm placeholder:text-gray-300 border bg-gray-50 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-lg shadow-sm"
                                     autofocus autocomplete="search">
@@ -124,7 +124,7 @@
                                                                     <span class="text-sm font-semibold">Edit</span>
                                                                 </div>
                                                             </a>
-                                                            <a href="{{ route('staff.mgmt.preview', $staff->uuid) }}">
+                                                            <a href="{{ route('staff.mgmt.details', $staff->uuid) }}">
                                                                 <div
                                                                     class="cursor-pointer bg-[#FFB300]/20 hover:bg-[#FFB300] text-[#E5A100] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                                     <i class="fa-solid fa-eye fa-md lg:fa-lg"></i>
@@ -274,7 +274,7 @@
                                                         <span class="text-sm font-semibold">Edit</span>
                                                     </div>
                                                 </a>
-                                                <a href="{{ route('staff.mgmt.preview', $staff->uuid) }}">
+                                                <a href="{{ route('staff.mgmt.details', $staff->uuid) }}">
                                                     <div
                                                         class="cursor-pointer bg-[#FFB300]/20 hover:bg-[#FFB300] text-[#E5A100] hover:text-white backdrop-blur-lg shadow-md rounded-md p-2 mb-3 flex items-center justify-center gap-2 transform transition ease-in-out">
                                                         <i class="fa-solid fa-eye fa-md lg:fa-lg"></i>

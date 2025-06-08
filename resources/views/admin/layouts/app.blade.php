@@ -34,6 +34,8 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Swiper -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- QR Code -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 
     <title>@yield('title')</title>
 </head>
@@ -41,7 +43,7 @@
 <body class="bg-[#FAFAFA] h-screen relative">
 
     <div class="fixed top-0 left-0 w-8/9 h-8/9 z-0"
-    style="background-image: url('{{ asset('image/radial-blur.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: left top;">
+        style="background-image: url('{{ asset('image/radial-blur.png') }}'); background-size: contain; background-repeat: no-repeat; background-position: left top;">
     </div>
 
     <!-- Sidebar -->

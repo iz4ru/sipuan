@@ -24,7 +24,7 @@
                 </x-nav-link>
             </li>
             <li>
-                <x-nav-link href="{{ route('staff.mgmt') }}" :active="request()->routeIs(['staff.mgmt', 'staff.mgmt.create'])"
+                <x-nav-link href="{{ route('staff.mgmt') }}" :active="request()->routeIs(['staff.mgmt', 'staff.mgmt.create', 'staff.mgmt.edit', 'staff.mgmt.details'])"
                     class="flex items-center gap-3 px-6 py-3 border-white">
                     <i class="fa-solid fa-user-group"></i>
                     <span class="font-semibold">Manajemen Staf</span>

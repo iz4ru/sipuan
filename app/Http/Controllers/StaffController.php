@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log;
+use App\Models\Tag;
 use App\Models\Staff;
 use App\Models\Position;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ class StaffController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhere('id_number', 'like', '%' . $search . '%')
                     ->orWhereHas('position', function ($q2) use ($search) {
                         $q2->where('position_name', 'like', '%' . $search . '%');
@@ -190,10 +190,12 @@ class StaffController extends Controller
 
     public function preview($uuid)
     {
-        $x['staff'] = Staff::where('uuid', $uuid)->firstOrFail();
-        $x['positions'] = Position::all();
+$x['staff'] = Staff::where('uuid', $uuid)->with(['rateResults', 'tags'])->withAvg('rateResults', 'rate')->withCount('rateResults')->firstOrFail();
 
-        return view('admin.staff.update', $x);
+        $x['positions'] = Position::all();
+        $x['tags'] = Tag::all();
+
+        return view('admin.staff.preview', $x);
     }
 
     public function destroy(Request $request, $uuid)
