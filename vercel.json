@@ -5,17 +5,16 @@
         "api/index.php": { "runtime": "vercel-php@0.7.3" }
     },
     "routes": [
-        { "src": "/build/(.*)", "dest": "/public/build/" },
         { "src": "/(.*)", "dest": "/api/index.php" }
     ],
     "public": true,
-    "buildCommand": "npm install && npm run build",
+    "buildCommand": "vite build",
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://sipuan-966pf9ynj-iz4rus-projects.vercel.app",
-        "APP_KEY": "base64:mr5cBmrGHl4BMwE9ycsgAMdMJtCM1n8PlULq8Mjwk9U",
+        "APP_URL": "https://sipuan.vercel.app",
+        "APP_KEY": "base64:mr5cBmrGHl4BMwE9ycsgAMdMJtCM1n8PlULq8Mjwk9U=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
