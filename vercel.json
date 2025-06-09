@@ -26,9 +26,9 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "DB_CONNECTION": "mysql",
-        "DB_HOST": "4gg.h.filess.io",
-        "DB_PORT": "3306",
-        "DB_DATABASE": "db2024_stormtorn",
-        "DB_USERNAME": "db2024_stormtorn"
+        "DB_HOST": "ucgxk.h.filess.io",
+        "DB_PORT": "3307",
+        "DB_DATABASE": "sipuan_something",
+        "DB_USERNAME": "sipuan_something"
     }
 }
