@@ -32,7 +32,7 @@
 
                                 <!-- Staff Card -->
                                 <div
-                                    class="shadow-lg flex flex-col gap-5 bg-white/50 backdrop-blur-lg w-full lg:w-1/4 py-8 px-6 mb-4 rounded-xl items-center justify-start text-center">
+                                    class="shadow-lg flex flex-col gap-5 bg-white/50 backdrop-blur-lg w-full lg:w-1/4 py-8 px-6 my-4 rounded-xl items-center justify-start text-center">
                                     <div class="relative w-[240px] h-[240px] lg:w-[200px] lg:h-[200px]">
                                         <img src="{{ Storage::url('images/' . $staff->image) }}" alt=""
                                             class="w-full h-full object-cover rounded-xl shadow-lg">
@@ -95,10 +95,10 @@
 
                                 <!-- Statistics Section -->
                                 <div
-                                    class="shadow-lg flex flex-col gap-4 bg-white/40 backdrop-blur-lg w-full lg:w-3/4 py-8 px-6 mb-4 rounded-xl items-start justify-start">
+                                    class="shadow-lg flex flex-col gap-4 bg-white/40 backdrop-blur-lg w-full lg:w-3/4 py-8 px-6 my-4 rounded-xl items-start justify-start">
 
                                     <div class="flex w-full items-center justify-center">
-                                        <h2 class="text-3xl font-bold text-[#0FA3FF]  mb-2">Akumulasi</h2>
+                                        <h2 class="text-3xl font-bold text-[#0FA3FF] mb-2">Akumulasi</h2>
                                     </div>
 
                                     <div class="flex flex-col w-full items-center justify-center">

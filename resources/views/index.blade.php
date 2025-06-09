@@ -34,61 +34,92 @@
                     <!-- Right Image -->
                     <div
                         class="lg:flex-1 transform -translate-y-16 lg:translate-y-0 lg:translate-x-0 transition-all duration-500 ease-in-out">
-                        <img src="{{ asset('image/rafiki.png') }}" alt="Ilustrasi voting digital"
+                        <img src="{{ asset('image/rafiki.png') }}" alt="Ilustrasi"
                             class="w-full max-w-[500px] mx-auto object-contain" />
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Best Of The Week Section -->
-        <section id="best-of-the-week" class="lg:pb-20 overflow-hidden bg-[#ECECEC]">
+        <!-- Best of the Month Section -->
+        <section id="best-of-the-month" class="lg:pb-20 overflow-hidden bg-[#ECECEC]">
             <div class="px-4 md:max-w-7xl mx-auto w-full flex justify-center items-center">
                 <div class="flex flex-col px-4 items-center gap-16 lg:gap-56 transition-transform duration-500 ease-in-out">
-                    <!-- Center Content -->
                     <div class="py-8 text-center max-w-[350px] lg:max-w-[450px]">
                         <h2 class="text-3xl lg:text-4xl font-bold text-gray-700 leading-tight">
                             Best Of The Month
                         </h2>
-                        <div class="mt-4">
-                            <p class="text-gray-500 text-lg leading-relaxed mx-auto">
-                                Ini adalah staf terbaik kami pada bulan <span class="font-bold">Mei 2025</span>
-                            </p>
-                        </div>
-                        <div
-                            class="transform hover:scale-120 transition duration-300 text-[#FAFAFA] bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] rounded-full w-16 h-16 flex items-center justify-center mt-8 mx-auto">
-                            <i class="fa-solid fa-trophy fa-2xl sm:fa-xl"></i>
-                        </div>
-                        <div class="mt-8">
-                            <div class="flex flex-col items-center justify-center">
-                                <img src="https://placehold.co/360x360?text=&font=Poppins" alt=""
-                                    class="rounded-t-xl shadow-xl w-full max-w-[320px]" />
-                                <div
-                                    class="shadow-xl flex flex-col gap-2 bg-white/30 backdrop-blur-lg w-full max-w-[320px] py-6 px-6 rounded-b-xl items-center justify-center text-center">
-                                    <p class="text-gray-700 text-2xl font-bold">Anita Faiziyah</p>
-                                    <hr class="w-1/2 border-t border-gray-300" />
-                                    <p class="text-gray-500 text-sm">Rating Pelayanan Staf Bulan Ini</p>
-                                    <div class="flex gap-2 items-center justify-center text-[#FFD32C] w-10 h-10">
-                                        <i class="fa-solid fa-star fa-xl"></i>
-                                        <i class="fa-solid fa-star fa-xl"></i>
-                                        <i class="fa-solid fa-star fa-xl"></i>
-                                        <i class="fa-solid fa-star fa-xl"></i>
-                                        <i class="fa-solid fa-star fa-xl text-gray-500"></i>
+
+                        @if ($bestStaff)
+                            <div class="mt-4">
+                                <p class="text-gray-500 text-lg leading-relaxed mx-auto">
+                                    Ini adalah staf terbaik kami pada bulan <span
+                                        class="font-bold text-[#0FA3FF]">{{ $now->translatedFormat('F Y') }}</span>
+                                </p>
+                            </div>
+                            <div
+                                class="transform hover:scale-120 transition duration-300 text-[#FAFAFA] bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] rounded-full w-16 h-16 flex items-center justify-center mt-8 mx-auto">
+                                <i class="fa-solid fa-trophy fa-2xl sm:fa-xl"></i>
+                            </div>
+                            <div class="mt-8">
+                                <div class="flex flex-col items-center justify-center">
+                                    <div class="relative w-[320px] h-[320px]">
+                                        <img src="{{ Storage::url('images/' . $bestStaff->staff->image) }}"
+                                            alt="{{ $bestStaff->staff->name }}"
+                                            class="w-full h-full object-cover rounded-t-xl shadow-lg">
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-[#0FA3FF]/50 to-transparent opacity-50 rounded-t-xl pointer-events-none">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p class="text-gray-500 font-bold">4.0 <span class="font-normal">dari</span> 50
-                                            ulasan</p>
+                                    <div
+                                        class="shadow-xl flex flex-col gap-2 bg-white/30 backdrop-blur-lg w-full max-w-[320px] py-6 px-6 rounded-b-xl items-center justify-center text-center">
+                                        <div class="flex flex-col items-center justify-center gap-1">
+                                            <p class="text-gray-700 text-xl font-bold">{{ $bestStaff->staff->name }}</p>
+                                            <p class="text-gray-500 text-base">
+                                                {{ $bestStaff->staff->position->position_name }}</p>
+                                            <p class="text-gray-500 text-base">{{ $bestStaff->staff->id_number }}</p>
+                                        </div>
+                                        <hr class="w-1/2 border-t border-gray-300" />
+                                        <p class="text-gray-500 text-sm">Rating Pelayanan Staf Bulan Ini</p>
+                                        <div class="flex gap-2 items-center justify-center text-[#FFD32C] w-10 h-10">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                <i
+                                                    class="fa-solid fa-star fa-xl {{ $i <= round($bestStaff->avg_rating) ? '' : 'text-gray-400' }}"></i>
+                                            @endfor
+                                        </div>
+                                        <div>
+                                            <p class="text-gray-500 font-bold">
+                                                {{ number_format($bestStaff->avg_rating, 1) }} <span
+                                                    class="font-normal">dari</span> {{ $bestStaff->total_rating }} ulasan
+                                                <span class="text-[#0FA3FF]"> bulan ini</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="mt-8">
+                                <div class="flex flex-col items-center justify-center gap-4">
+                                    <div
+                                        class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-gray-400">
+                                        <i class="fa-solid fa-star-half-stroke fa-2xl"></i>
+                                    </div>
+                                    <p class="text-gray-500 text-lg leading-relaxed mx-auto">
+                                        Belum ada staf terbaik untuk bulan <span
+                                            class="font-bold">{{ $now->translatedFormat('F Y') }}</span>
+                                    </p>
+                                    <p class="text-sm text-gray-400">Ayo beri rating untuk staf agar muncul di sini!</p>
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Catalog Section -->
-        <section id="catalog" class="lg:pb-20 overflow-hidden bg-gradient-to-b from-[#ECECEC] from-50% to-[#DDDDDD]">
+        <section id="catalog" class="overflow-hidden bg-gradient-to-b from-[#ECECEC] from-50% to-[#DDDDDD]">
             <div class="px-4 md:max-w-7xl mx-auto w-full flex justify-center items-center">
                 <div class="flex flex-col px-4 items-center transition-transform duration-500 ease-in-out w-full">
                     <!-- Center Content -->
@@ -103,20 +134,12 @@
                             </p>
                         </div>
                     </div>
-
-                    <div class="mt-8 w-full">
-                        <div
-                            class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                            <img src="https://placehold.co/240x240?text=&font=Poppins" alt="" class="rounded-xl" />
-                            <p class="text-gray-700 text-2xl font-bold">Kepegawaian</p>
-                            <hr class="w-1/2 border-t border-gray-300" />
-                            <a href="{{ route('search.staff') }}"
-                                class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                Lihat Selengkapnya
-                                <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                            </a>
-                        </div>
+                    
+                    <div class="transition-all duration-500 ease-in-out">
+                        <img src="{{ asset('image/rafiki-3.png') }}" alt="Ilustrasi"
+                            class="w-full max-w-[500px] mx-auto object-contain" />
                     </div>
+
                 </div>
             </div>
         </section>
