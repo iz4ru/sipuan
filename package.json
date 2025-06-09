@@ -3,9 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite",
-        "vercel-build": "apt-get update && apt-get install -y libssl-dev && composer install",
-        "laravel": "php artisan db:seed && php artisan migrate --force && php artisan storage:link"
+        "dev": "vite"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
