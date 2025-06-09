@@ -369,7 +369,6 @@
         </div>
 
         <style>
-            /* Hide default Swiper navigation buttons */
             .swiper-button-next,
             .swiper-button-prev {
                 display: none;
@@ -377,12 +376,10 @@
         </style>
 
         <script>
-            // Alpine.js component for the carousel
             function staffCarousel() {
                 return {
                     swiper: null,
                     init() {
-                        // Initialize Swiper with custom navigation
                         this.swiper = new Swiper(this.$refs.staffSwiper, {
                             slidesPerView: 1,
                             spaceBetween: 30,

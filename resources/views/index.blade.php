@@ -105,141 +105,16 @@
                     </div>
 
                     <div class="mt-8 w-full">
-                        <!-- Swiper -->
-                        <div class="swiper catalogSwiper">
-                            <div class="swiper-wrapper">
-                                <!-- Kepegawaian -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Kepegawaian</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Keuangan -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Keuangan</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Inventaris -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Inventaris</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Sarana Prasarana -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Sarana Prasarana</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Kesiswaan -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Kesiswaan</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Persuratan -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Persuratan</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Hubungan Masyarakat -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Hubungan Masyarakat</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!-- Dapodik -->
-                                <div class="swiper-slide">
-                                    <div
-                                        class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
-                                        <img src="https://placehold.co/240x240?text=&font=Poppins" alt=""
-                                            class="rounded-xl" />
-                                        <p class="text-gray-700 text-2xl font-bold">Dapodik</p>
-                                        <hr class="w-1/2 border-t border-gray-300" />
-                                        <a href="{{ route('search.staff') }}"
-                                            class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
-                                            Lihat Selengkapnya
-                                            <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-
+                        <div
+                            class="shadow-xl flex flex-col gap-4 bg-white/30 backdrop-blur-lg w-[360px] h-[420px] rounded-xl items-center justify-center text-center">
+                            <img src="https://placehold.co/240x240?text=&font=Poppins" alt="" class="rounded-xl" />
+                            <p class="text-gray-700 text-2xl font-bold">Kepegawaian</p>
+                            <hr class="w-1/2 border-t border-gray-300" />
+                            <a href="{{ route('search.staff') }}"
+                                class="button bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] justify-center px-12 py-3 rounded-md text-sm font-bold hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] transition-colors flex items-center gap-1 sm:gap-2">
+                                Lihat Selengkapnya
+                                <i class="fa-solid fa-chevron-right fa-sm sm:fa-md"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

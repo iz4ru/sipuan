@@ -114,7 +114,7 @@
                                     @php
                                         $tagNames = $tagCounts->pluck('tag_name');
                                         $tagTotals = $tagCounts->pluck('total');
-                                        $colors = ['#22A06B', '#7C3AED', '#FFB300', '#EF4444', '#1D7AFC', '#EC4899'];
+                                        $colors = ['#1D7AFC', '#FFB300', '#7C3AED', '#EF4444', '#22A06B', '#EC4899'];
                                     @endphp
 
                                     <script>

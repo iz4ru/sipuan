@@ -93,8 +93,16 @@
                 <div id="monthlyRatingChart"></div>
             </div>
 
+            @php
+                $colors = ['#1D7AFC', '#FFB300', '#7C3AED', '#EF4444', '#22A06B', '#EC4899'];
+            @endphp
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
+                    const months = @json($months);
+                    const totals = @json($totals);
+                    const colors = @json($colors);
+
                     const options = {
                         chart: {
                             type: 'bar',
@@ -102,15 +110,15 @@
                             toolbar: {
                                 show: false
                             },
-                            fontFamily: 'inherit',
-                            background: 'transparent'
+                            background: 'transparent',
+                            fontFamily: 'inherit'
                         },
                         series: [{
                             name: 'Jumlah Rating',
-                            data: @json($totals)
+                            data: totals
                         }],
                         xaxis: {
-                            categories: @json($months),
+                            categories: months,
                             labels: {
                                 style: {
                                     fontSize: '12px'
@@ -120,11 +128,11 @@
                         plotOptions: {
                             bar: {
                                 borderRadius: 4,
-                                horizontal: false,
-                                distributed: true
+                                distributed: true,
+                                horizontal: false
                             }
                         },
-                        colors: ['#0FA3FF'],
+                        colors: colors,
                         dataLabels: {
                             enabled: true,
                             style: {
@@ -139,6 +147,9 @@
                                 }
                             }
                         },
+                        legend: {
+                            show: false
+                        }
                     };
 
                     const chart = new ApexCharts(document.querySelector("#monthlyRatingChart"), options);

@@ -11,9 +11,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\HomeController;
 
 # Landing Page
-Route::get('/', function () {return view('index');});
+Route::get('/', [HomeController::class, 'index']);
 
 # Search Staff
 Route::get('staff', [SearchController::class, 'index'])->name('search.staff');
