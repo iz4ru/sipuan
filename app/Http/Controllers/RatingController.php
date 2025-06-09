@@ -30,6 +30,18 @@ class RatingController extends Controller
 
     public function store(Request $request, $uuid)
     {
+        $now = Carbon::now('Asia/Jakarta'); 
+        $start = Carbon::createFromTime(8, 0, 0);
+        $end = Carbon::createFromTime(15, 0, 0);
+
+        if (!$now->between($start, $end)) {
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'error' => 'Rating hanya bisa dilakukan antara jam 08:00 sampai 15:00.',
+                ]);
+        }
+
         $request->validate(
             [
                 'rate' => 'required|numeric|min:1|max:5',
