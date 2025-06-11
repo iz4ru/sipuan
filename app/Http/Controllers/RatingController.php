@@ -32,7 +32,7 @@ class RatingController extends Controller
     {
         $now = Carbon::now('Asia/Jakarta'); 
         $start = Carbon::createFromTime(8, 0, 0);
-        $end = Carbon::createFromTime(15, 0, 0);
+        $end = Carbon::createFromTime(16, 0, 0);
 
         if (!$now->between($start, $end)) {
             return redirect()
