@@ -134,7 +134,7 @@
                             </p>
                         </div>
                     </div>
-                    
+
                     <div class="transition-all duration-500 ease-in-out">
                         <img src="{{ asset('image/rafiki-3.png') }}" alt="Ilustrasi"
                             class="w-full max-w-[500px] mx-auto object-contain" />
@@ -160,23 +160,32 @@
                             </p>
                         </div>
                     </div>
-                    <div class="mt-4 grid lg:grid-cols-2 gap-8 items-center justify-center">
+                    <div class="mt-4 grid lg:grid-cols-3 gap-8 items-center justify-center">
                         <div
-                            class="flex flex-col gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
+                            class="flex flex-col hover:scale-105 transition ease-in-out duration-100 gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
                             <div class="flex gap-2 items-center justify-center text-[#05C1FF] w-10 h-10">
-                                <i class="fa-solid fa-phone fa-xl"></i>
+                                <i class="fa-brands fa-whatsapp fa-xl"></i>
                             </div>
-                            <p class="text-gray-700 text-2xl font-bold">(+62) 851 8333 0000</p>
-                            <p class="text-gray-500 text-sm">Hubungi kami melalui telepon</p>
+                            <a href="https://wa.me/6285169713377" class="text-gray-700 text-2xl font-bold hover:text-[#05C1FF] transition ease-in-out duration-300 cursor-pointer">(+62) 851-6971-3377</a>
+                            <p class="text-gray-500 text-sm">Hubungi CS kami melalui WhatsApp</p>
                         </div>
                         <div
-                            class="flex flex-col gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
+                            class="flex flex-col hover:scale-105 transition ease-in-out duration-100 gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
+                            <div class="flex gap-2 items-center justify-center text-[#05C1FF] w-10 h-10">
+                                <i class="fa-brands fa-instagram fa-xl"></i>
+                            </div>
+                            <a href="https://www.instagram.com/tu_smkn1subang" class="text-gray-700 text-2xl font-bold hover:text-[#05C1FF] transition ease-in-out duration-300 cursor-pointer">@tu_smkn1subang</a>
+                            <p class="text-gray-500 text-sm">Hubungi kami melalui Instagram</p>
+                        </div>
+                        <div
+                            class="flex flex-col hover:scale-105 transition ease-in-out duration-100 gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
                             <div class="flex gap-2 items-center justify-center text-[#05C1FF] w-10 h-10">
                                 <i class="fa-solid fa-envelope fa-xl"></i>
                             </div>
-                            <p class="text-gray-700 text-2xl font-bold">infosipuan@gmail.com</p>
+                            <a href="#" class="text-gray-700 text-2xl font-bold hover:text-[#05C1FF] transition ease-in-out duration-300 cursor-pointer">infosipuan@gmail.com</a>
                             <p class="text-gray-500 text-sm">Hubungi kami melalui email</p>
                         </div>
+
                     </div>
                 </div>
                 <a href="#" class="text-gray-500 hover:text-gray-700 text-sm font-semibold">KEMBALI KE ATAS</a>
