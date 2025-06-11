@@ -87,10 +87,28 @@
                 </div>
             </div>
 
-            <!-- Chart: Total Rating Per Bulan -->
-            <div class="bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6 mt-8">
-                <h2 class="text-lg font-semibold text-gray-700 mb-4">Perolehan Rating per Bulan</h2>
-                <div id="monthlyRatingChart"></div>
+            <!-- Container Responsive -->
+            <div class="bg-white/30 backdrop-blur-lg rounded-xl shadow-lg p-6 mt-8 w-full overflow-x-auto">
+
+                <!-- Header + Filter -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+                    <h2 class="text-lg font-semibold text-gray-700">Perolehan Rating per Bulan</h2>
+
+                    <!-- Filter Tahun -->
+                    <div class="flex items-center gap-2">
+                        <label for="yearFilter" class="text-sm font-medium text-gray-700">Tahun:</label>
+                        <select id="yearFilter"
+                            class="text-sm border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            @foreach ($availableYears as $year)
+                                <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>
+                                    {{ $year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Chart -->
+                <div id="monthlyRatingChart" class="w-full"></div>
             </div>
 
             @php
@@ -154,6 +172,13 @@
 
                     const chart = new ApexCharts(document.querySelector("#monthlyRatingChart"), options);
                     chart.render();
+                });
+
+                document.getElementById('yearFilter').addEventListener('change', function() {
+                    const selectedYear = this.value;
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('year', selectedYear);
+                    window.location.href = url.toString();
                 });
             </script>
 
