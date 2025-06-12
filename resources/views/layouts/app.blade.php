@@ -48,34 +48,32 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Fungsi untuk menangani animasi alert
         const handleAlertAnimation = (alertId, duration = 2000, transitionDuration = 300) => {
             const alert = document.getElementById(alertId);
             if (alert) {
-                // Fade in
+
                 setTimeout(() => {
                     alert.classList.remove('opacity-0');
                     alert.classList.add('opacity-100');
-                }, 100); // Delay kecil untuk memastikan DOM siap
+                }, 100);
 
-                // Auto-close setelah durasi tertentu
                 setTimeout(() => {
                     alert.classList.remove('opacity-100');
                     alert.classList.add('opacity-0');
                     setTimeout(() => alert.remove(),
-                        transitionDuration); // Hapus setelah transisi selesai
+                        transitionDuration); 
                 }, duration);
             }
         };
 
-        // Terapkan animasi untuk errorAlert dan successAlert
+
         handleAlertAnimation('errorAlert', 2000, 150);
         handleAlertAnimation('successAlert', 2000, 150);
     });
 </script>
 
 <style>
-    /* Custom styles for Swiper */
+
     .swiper {
         width: 100%;
         padding-bottom: 50px;
@@ -96,7 +94,6 @@
         background: #05c1ff;
     }
 
-    /* Make sure the navigation buttons are visible on small screens */
     @media (max-width: 640px) {
 
         .swiper-button-next,

@@ -160,7 +160,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="mt-4 grid lg:grid-cols-3 gap-8 items-center justify-center">
+                    <div class="mt-4 grid lg:grid-cols-3 md:grid-cols-2 gap-8 items-center justify-center">
                         <div
                             class="flex flex-col hover:scale-105 transition ease-in-out duration-100 gap-4 items-center justify-center text-center bg-white/30 backdrop-blur-lg w-[360px] h-[180px] rounded-xl">
                             <div class="flex gap-2 items-center justify-center text-[#05C1FF] w-10 h-10">
