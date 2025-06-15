@@ -46,12 +46,51 @@
 
 </body>
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mendapatkan semua tombol "Lihat Selengkapnya"
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+
+        // Menambahkan event listener untuk setiap tombol
+        toggleButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const shortId = this.getAttribute('data-short');
+                const fullId = this.getAttribute('data-full');
+
+                const shortText = document.getElementById(shortId);
+                const fullText = document.getElementById(fullId);
+
+                shortText.classList.toggle('hidden');
+                fullText.classList.toggle('hidden');
+
+                if (this.innerText === "Lihat Selengkapnya") {
+                    this.innerText = "Sembunyikan";
+                } else {
+                    this.innerText = "Lihat Selengkapnya";
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+    document.querySelectorAll(".togglePassword").forEach((icon) => {
+        icon.addEventListener("click", function() {
+            const passwordInput = this.previousElementSibling;
+            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+    });
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const handleAlertAnimation = (alertId, duration = 2000, transitionDuration = 300) => {
             const alert = document.getElementById(alertId);
             if (alert) {
-
                 setTimeout(() => {
                     alert.classList.remove('opacity-0');
                     alert.classList.add('opacity-100');
@@ -61,11 +100,10 @@
                     alert.classList.remove('opacity-100');
                     alert.classList.add('opacity-0');
                     setTimeout(() => alert.remove(),
-                        transitionDuration); 
+                        transitionDuration);
                 }, duration);
             }
         };
-
 
         handleAlertAnimation('errorAlert', 2000, 150);
         handleAlertAnimation('successAlert', 2000, 150);
@@ -73,7 +111,6 @@
 </script>
 
 <style>
-
     .swiper {
         width: 100%;
         padding-bottom: 50px;

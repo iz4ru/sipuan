@@ -123,7 +123,6 @@
                                             onchange="this.classList.remove('text-gray-300'); this.classList.add('text-gray-700');">
                                             <option value="" disabled selected>Pilih Role</option>
                                             <option value="admin">Admin</option>
-                                            {{-- <option value="panitia">Panitia</option> --}}
                                         </select>
                                     </div>
                                 </div>

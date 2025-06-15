@@ -40,7 +40,8 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validatedData = $request->validate(
+            [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
@@ -57,7 +58,7 @@ class AdminController extends Controller
                 'password_confirmation.required' => 'Konfirmasi password tidak boleh kosong!',
                 'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter!',
                 'password_confirmation.confirmed' => 'Konfirmasi password tidak sesuai!',
-            ]
+            ],
         );
 
         $activity = 'Membuat user baru';
@@ -95,29 +96,28 @@ class AdminController extends Controller
     {
         $users = User::where('uuid', $uuid)->firstOrFail();
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $users->id,
-            'username' => 'required|string|max:255|unique:users,username,' . $users->id,
-        ], [
-            'name.required' => 'Nama tidak boleh kosong!',
-            'email.required' => 'Email tidak boleh kosong!',
-            'email.unique' => 'Email sudah terdaftar!',
-            'username.required' => 'Username tidak boleh kosong!',
-            'username.unique' => 'Username sudah terdaftar!',
-        ]);  
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $users->id,
+                'username' => 'required|string|max:255|unique:users,username,' . $users->id,
+            ],
+            [
+                'name.required' => 'Nama tidak boleh kosong!',
+                'email.required' => 'Email tidak boleh kosong!',
+                'email.unique' => 'Email sudah terdaftar!',
+                'username.required' => 'Username tidak boleh kosong!',
+                'username.unique' => 'Username sudah terdaftar!',
+            ],
+        );
 
-        $noneChanged = User::where('name', $request->name)
-            ->where('email', $request->email)
-            ->where('username', $request->username)
-            ->where('uuid', '!=', $uuid)
-            ->exists();
+        $noneChanged = User::where('name', $request->name)->where('email', $request->email)->where('username', $request->username)->where('uuid', '!=', $uuid)->exists();
 
         if ($noneChanged) {
             return back()->withErrors([
-                'all' => 'Data yang Anda masukkan sudah ada, tidak ada perubahan yang dibuat!'
+                'all' => 'Data yang Anda masukkan sudah ada, tidak ada perubahan yang dibuat!',
             ]);
-        }      
+        }
 
         $activity = 'Mengupdate data user';
         $this->logActivity($activity);
@@ -137,9 +137,11 @@ class AdminController extends Controller
         $userCount = User::where('role', 'admin')->count();
 
         if ($userCount <= 1 && $user->role === 'admin') {
-            return redirect()->back()->withErrors([
-                'delete' => 'Tidak bisa menghapus user admin terakhir!',
-            ]);
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'delete' => 'Tidak bisa menghapus user admin terakhir!',
+                ]);
         }
 
         $request->validate([
@@ -171,13 +173,11 @@ class AdminController extends Controller
     {
         $user = User::where('uuid', $uuid)->firstOrFail();
 
-        if ($request->password !== $request->password_confirmation)
-        {
+        if ($request->password !== $request->password_confirmation) {
             return back()->withErrors([
                 'password_confirmation' => 'Password baru dan konfirmasi password tidak sesuai!',
             ]);
-        } elseif (Str::length($request->password) < 8)
-        {
+        } elseif (Str::length($request->password) < 8) {
             return back()->withErrors([
                 'password_confirmation' => 'Password baru minimal 8 karakter!',
             ]);
@@ -186,19 +186,20 @@ class AdminController extends Controller
         $activity = 'Update password user';
         $this->logActivity($activity);
 
-        $request->validate([
-            'password_current' => 'required|string|min:8',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:8',
-        ],
-        [
-            'password_current.required' => 'Password saat ini tidak boleh kosong!',
-            'password.required' => 'Password baru tidak boleh kosong!',
-            'password_confirmation.required' => 'Konfirmasi password baru tidak boleh kosong!',
-        ]);
+        $request->validate(
+            [
+                'password_current' => 'required|string|min:8',
+                'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required|string|min:8',
+            ],
+            [
+                'password_current.required' => 'Password saat ini tidak boleh kosong!',
+                'password.required' => 'Password baru tidak boleh kosong!',
+                'password_confirmation.required' => 'Konfirmasi password baru tidak boleh kosong!',
+            ],
+        );
 
-        if (!Hash::check($request->password_current, $user->password))
-        {
+        if (!Hash::check($request->password_current, $user->password)) {
             return back()->withErrors([
                 'password_current' => 'Password saat ini tidak sesuai!',
             ]);

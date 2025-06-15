@@ -40,7 +40,8 @@
                                     <div class="relative w-full">
                                         <i
                                             class="fa fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
-                                        <input placeholder="Masukkan Email" type="email" name="email" id="email" value="{{ old('email') }}"
+                                        <input placeholder="Masukkan Email" type="email" name="email" id="email"
+                                            value="{{ old('email') }}"
                                             class="text-sm w-full h-14 pl-12 placeholder:text-gray-300 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#0FA3FF] transition duration-300 ease-in-out rounded-md shadow-sm"
                                             required autofocus autocomplete="email">
                                     </div>
@@ -55,11 +56,11 @@
                                             id="togglePassword"></i>
                                     </div>
 
-                                <!-- Forgot Password -->
-                                <div
-                                    class="space-y-4 mt-2 text-sm text-right text-[#05C1FF] hover:text-[#0FA3FF] hover:underline">
-                                    <a href="{{ route('admin.login') }}">Lupa Password?</a>
-                                </div>
+                                    <!-- Forgot Password -->
+                                    <div
+                                        class="space-y-4 mt-2 text-sm text-right text-[#05C1FF] hover:text-[#0FA3FF] hover:underline">
+                                        <a href="{{ route('password.request') }}">Lupa Password?</a>
+                                    </div>
 
                                     @if (session('success'))
                                         <div class="alert alert-success alert-dismissible relative text-sm py-2 px-4 bg-green-100 text-green-500 border border-green-500 rounded-md opacity-0 transition-opacity duration-150 ease-in-out"
@@ -71,8 +72,9 @@
 
                                     @if ($errors->any())
                                         <div class="alert alert-danger alert-dismissible relative text-sm py-2 px-4 bg-red-100 text-red-500 border border-red-500 rounded-md opacity-0 transition-opacity duration-150 ease-in-out"
-                                        role="alert" id="errorAlert">
-                                        <i class="fa fa-circle-exclamation absolute left-4 top-1/2 -translate-y-1/2"></i>
+                                            role="alert" id="errorAlert">
+                                            <i
+                                                class="fa fa-circle-exclamation absolute left-4 top-1/2 -translate-y-1/2"></i>
                                             <ul class="list-none m-0 p-0">
                                                 @foreach ($errors->all() as $error)
                                                     <li class="ml-6">{{ $error }}</li>
@@ -95,48 +97,20 @@
                                             }
                                         });
                                     </script>
-
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', () => {
-                                            // Fungsi untuk menangani animasi alert
-                                            const handleAlertAnimation = (alertId, duration = 2000, transitionDuration = 300) => {
-                                                const alert = document.getElementById(alertId);
-                                                if (alert) {
-                                                    // Fade in
-                                                    setTimeout(() => {
-                                                        alert.classList.remove('opacity-0');
-                                                        alert.classList.add('opacity-100');
-                                                    }, 100); // Delay kecil untuk memastikan DOM siap
-
-                                                    // Auto-close setelah durasi tertentu
-                                                    setTimeout(() => {
-                                                        alert.classList.remove('opacity-100');
-                                                        alert.classList.add('opacity-0');
-                                                        setTimeout(() => alert.remove(),
-                                                            transitionDuration); // Hapus setelah transisi selesai
-                                                    }, duration);
-                                                }
-                                            };
-
-                                            // Terapkan animasi untuk errorAlert dan successAlert
-                                            handleAlertAnimation('errorAlert', 2000, 150);
-                                            handleAlertAnimation('successAlert', 2000, 150);
-                                        });
-                                    </script>
                                 </div>
 
-                                {{-- <!-- Register First Admin Account -->
+                                <!-- Register First Admin Account -->
                                 @if (!$adminExists)
                                     <div class="space-y-4 mt-4">
-                                        <a href="{{ route('register.admin') }}" 
-                                        class="flex items-center justify-center w-full px-6 py-4 bg-[#22A06B] hover:bg-[#1A754E] text-white rounded-xl transition-colors">
+                                        <a href="{{ route('admin.register') }}"
+                                            class="cursor-pointer flex items-center justify-center w-full px-6 py-4 bg-gradient-to-r from-[#05C1FF] to-[#0FA3FF] text-[#FAFAFA] hover:bg-gradient-r hover:from-[#0092C2] hover:to-[#006BAD] rounded-lg transition-colors">
                                             <div class="text-center flex items-center gap-3">
-                                                <span class="font-semibold">Registrasi Admin</span>
-                                                <i class="fa-solid fa-user-tie"></i>
+                                                <span class="font-semibold">Registrasi Admin Pertama</span>
+                                                <i class="fa-solid fa-chevron-right"></i>
                                             </div>
                                         </a>
                                     </div>
-                                @endif --}}
+                                @endif
 
                                 <!-- Login Buttons -->
                                 <div class="space-y-4 mt-4">

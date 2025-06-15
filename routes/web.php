@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\RatingController;
@@ -10,8 +11,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Auth\AdminLoginController;
-use App\Http\Controllers\HomeController;
 
 # Landing Page
 Route::get('/', [HomeController::class, 'index']);
@@ -23,12 +24,18 @@ Route::get('staff', [SearchController::class, 'index'])->name('search.staff');
 Route::get('rate/{uuid}', [RatingController::class, 'index'])->name('rate');
 Route::post('rate/{uuid}', [RatingController::class, 'store'])->name('rate.store');
 
+# Password Reset
+Route::get('/forgot-password', [ResetPasswordController::class, 'index'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [ResetPasswordController::class, 'sendResetLink'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->middleware('guest')->name('password.update');
+
 # Admin Authentication
 Route::middleware('guest') -> group(function (){
     Route::get('auth', [AdminLoginController::class, 'index'])->name('admin.login');
     Route::post('auth', [AdminLoginController::class, 'loginAction'])->name('admin.login.action');
-    Route::get('auth/register', [AdminLoginController::class, 'registerFirstAdmin'])->name('register.admin');
-    Route::post('auth/register', [AdminLoginController::class, 'storeFirstAdmin'])->name('register.admin.store');
+    Route::get('auth/register', [AdminLoginController::class, 'registerFirstAdmin'])->name('admin.register');
+    Route::post('auth/register', [AdminLoginController::class, 'storeFirstAdmin'])->name('admin.register.store');
 });
 
 Route::middleware('auth') -> group(function (){
