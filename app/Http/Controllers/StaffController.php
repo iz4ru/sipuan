@@ -73,7 +73,7 @@ class StaffController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:staffs',
                 'image' => 'required|image|mimes:png,jpg,jpeg|max:2048', // Standardized to 2MB
-                'id_number' => 'required|string|max:255',
+                'id_number' => 'required|string|max:25|unique:staffs',
                 'sex' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
                 'position_name' => 'required|string|max:255',
@@ -87,11 +87,12 @@ class StaffController extends Controller
                 'email.email' => 'Format email tidak valid!',
                 'email.unique' => 'Email sudah terdaftar!',
                 'id_number.required' => 'Nomor identitas tidak boleh kosong!',
+                'id_number.unique' => 'Nomor identitas sudah terdaftar!',
                 'position_name.required' => 'Bidang tidak boleh kosong!',
             ],
         );
 
-        $position = Position::create([
+        $position = Position::firstOrCreate([
             'position_name' => $validated['position_name'],
         ]);
 

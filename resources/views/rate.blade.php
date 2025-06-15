@@ -137,8 +137,7 @@
                                                     Tag:</p>
                                                 <div class="flex flex-wrap gap-2 items-start justify-start">
                                                     <template x-for="(tag, index) in displayTags" :key="`tag-${index}`">
-                                                        <button type="button"
-                                                            @click="toggleTag(tag)"
+                                                        <button type="button" @click="toggleTag(tag)"
                                                             class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
                                                             :class="isTagSelected(tag) ?
                                                                 'bg-[#05C1FF] text-white shadow-md' :
@@ -159,7 +158,8 @@
                                                                 'cursor-not-allowed bg-gray-200 text-gray-400' :
                                                                 'bg-gray-300 hover:bg-gray-400 text-gray-700'"
                                                             class="px-4 py-1.5 rounded-full transition-colors text-sm font-medium select-none cursor-pointer"
-                                                            :disabled="selectedTags.length >= maxTags" aria-label="Tambah Tag">
+                                                            :disabled="selectedTags.length >= maxTags"
+                                                            aria-label="Tambah Tag">
                                                             +
                                                         </button>
                                                     @endif
@@ -193,8 +193,7 @@
 
                                                     <div class="flex flex-wrap gap-3 mb-6 justify-center">
                                                         <template x-for="(tag, index) in moreTags" :key="`modal-${index}`">
-                                                            <button type="button"
-                                                                @click="toggleTag(tag)"
+                                                            <button type="button" @click="toggleTag(tag)"
                                                                 class="px-4 py-1.5 rounded-full text-sm font-medium select-none transition-colors"
                                                                 :class="selectedTags.length >= maxTags ?
                                                                     'bg-gray-200 text-gray-400 cursor-not-allowed' :
@@ -219,7 +218,7 @@
                                         <div>
                                             <p class="text-gray-500 mb-2 font-medium text-left">Berikan Nilai Terhadap
                                                 Pelayanan</p>
-                                            <div x-data="{ rating: 0, hoverRating: 0 }" class="flex gap-2 items-center mt-4">
+                                            <div x-data="{ rating: 0, hoverRating: 0 }" class="flex gap-2 lg:gap-4 items-center mt-4">
                                                 <template x-for="star in 5" :key="star">
                                                     <button type="button" @mouseover="hoverRating = star"
                                                         @mouseleave="hoverRating = 0" @click="rating = star"
@@ -229,9 +228,21 @@
                                                         <i class="fa-solid fa-star text-3xl md:text-4xl"></i>
                                                     </button>
                                                 </template>
-                                                <span
-                                                    x-text="rating > 0 ? `${rating}/5` : (hoverRating > 0 ? `${hoverRating}/5` : '')"
-                                                    class="text-base text-gray-500 ml-2 font-bold"></span>
+                                                <span x-show="rating > 0 || hoverRating > 0"
+                                                    x-transition:enter="transition ease-out duration-300"
+                                                    x-transition:enter-start="opacity-0 scale-90 translate-y-2"
+                                                    x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                                    x-transition:leave="transition ease-in duration-200"
+                                                    x-transition:leave-start="opacity-100 scale-100"
+                                                    x-transition:leave-end="opacity-0 scale-90"
+                                                    x-text="{
+        1: '1/5 • 😡 Sangat Buruk',
+        2: '2/5 • 😞 Buruk',
+        3: '3/5 • 😐 Biasa',
+        4: '4/5 • 🙂 Puas',
+        5: '5/5 • 🤩 Sangat Puas'
+    }[hoverRating || rating]"
+                                                    class="text-base lg:text-xl text-gray-500 ml-2 font-bold"></span>
                                                 <input type="hidden" name="rate" :value="rating">
                                             </div>
                                         </div>
@@ -255,14 +266,16 @@
                                                 <div class="flex items-center gap-2">
                                                     <i class="fa-brands fa-whatsapp text-gray-600"></i>
                                                     <p class="text-gray-700">WhatsApp:
-                                                        <a href="{{ $whatsappNumber }}" class="text-[#05C1FF] hover:underline">Klik
+                                                        <a href="{{ $whatsappNumber }}"
+                                                            class="text-[#05C1FF] hover:underline">Klik
                                                             Untuk Kirim Pesan</a>
                                                     </p>
                                                 </div>
                                                 <div class="flex items-center gap-2">
                                                     <i class="fa-solid fa-envelope text-gray-600"></i>
                                                     <p class="text-gray-700">E-mail:
-                                                        <a href="{{ $staffEmail }}" class="text-[#05C1FF] hover:underline">Klik
+                                                        <a href="{{ $staffEmail }}"
+                                                            class="text-[#05C1FF] hover:underline">Klik
                                                             Untuk Kirim E-mail</a>
                                                     </p>
                                                 </div>
@@ -342,7 +355,7 @@
                 },
 
                 get displayTags() {
-                    const selectedFromMore = this.selectedTags.filter(tag => 
+                    const selectedFromMore = this.selectedTags.filter(tag =>
                         !this.availableTags.includes(tag) && !this.moreTags.includes(tag)
                     );
                     return [...this.availableTags, ...selectedFromMore];
@@ -354,10 +367,10 @@
 
                 toggleTag(tag) {
                     const index = this.selectedTags.indexOf(tag);
-                    
+
                     if (index > -1) {
                         this.selectedTags.splice(index, 1);
-                        
+
                         const allTags = @json($tags->toArray());
                         const originalIndex = allTags.indexOf(tag);
                         if (originalIndex >= 3 && !this.moreTags.includes(tag)) {
@@ -365,7 +378,7 @@
                         }
                     } else if (this.selectedTags.length < this.maxTags) {
                         this.selectedTags.push(tag);
-                        
+
                         if (this.moreTags.includes(tag)) {
                             this.moreTags = this.moreTags.filter(t => t !== tag);
                         }
